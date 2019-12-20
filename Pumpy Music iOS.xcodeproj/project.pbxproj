@@ -1,0 +1,795 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C0106186238DF29A002A60A8 /* To Do List in Resources */ = {isa = PBXBuildFile; fileRef = C0106185238DF29A002A60A8 /* To Do List */; };
+		C016F76F239A9E3000A2B26F /* TrackRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B5BCB12395CEDA00102F50 /* TrackRow.swift */; };
+		C046009C2389595C008151A5 /* MarqueeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C046009B2389595C008151A5 /* MarqueeLabel.swift */; };
+		C04600A023895E0B008151A5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C046009E23895DC9008151A5 /* QuartzCore.framework */; };
+		C087AA97234681CA002A4873 /* AlarmApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AA7E23465D47002A4873 /* AlarmApplicationDelegate.swift */; };
+		C087AA9823468208002A4873 /* AlarmAddEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AA7D23465D42002A4873 /* AlarmAddEditViewController.swift */; };
+		C087AA992346820D002A4873 /* AlarmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AA8023465D47002A4873 /* AlarmModel.swift */; };
+		C087AA9A23468210002A4873 /* AlarmSchedulerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AA7F23465D47002A4873 /* AlarmSchedulerDelegate.swift */; };
+		C087AAA423476E52002A4873 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AAA323476E52002A4873 /* MediaViewController.swift */; };
+		C087AAA623476E65002A4873 /* WeekdaysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AAA523476E65002A4873 /* WeekdaysViewController.swift */; };
+		C087AAA823476E7E002A4873 /* LabelEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AAA723476E7E002A4873 /* LabelEditViewController.swift */; };
+		C087AAAB23476E9E002A4873 /* SegueInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AAAA23476E9E002A4873 /* SegueInfo.swift */; };
+		C087AAAF23476EE6002A4873 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AAA023476DE6002A4873 /* Identifier.swift */; };
+		C087AAB023476EEA002A4873 /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AA9C23476D9B002A4873 /* UIWindow+Extension.swift */; };
+		C087AAB123476EED002A4873 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AA9D23476DAA002A4873 /* NotificationName+Extension.swift */; };
+		C087AAB223476EEF002A4873 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AA9F23476DD4002A4873 /* Scheduler.swift */; };
+		C087AAB323476EF4002A4873 /* MainAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AAA223476E14002A4873 /* MainAlarmViewController.swift */; };
+		C087AAB423476F03002A4873 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AAAD23476EBD002A4873 /* Persistable.swift */; };
+		C087AAB523476F06002A4873 /* PropertyReflectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AAAE23476EC5002A4873 /* PropertyReflectable.swift */; };
+		C0B5BCB42395CF0C00102F50 /* TrackTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03176902395C69900B5D766 /* TrackTable.swift */; };
+		C0B5BCB52395CF1000102F50 /* MusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03176922395C69900B5D766 /* MusicManager.swift */; };
+		C0B5BCB62395CF1300102F50 /* PlaylistRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03176942395C69900B5D766 /* PlaylistRow.swift */; };
+		C0B5BCB72395CF1600102F50 /* PlaylistTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03176912395C69900B5D766 /* PlaylistTable.swift */; };
+		C0B5BCB82396A59600102F50 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03176932395C69900B5D766 /* SceneDelegate.swift */; };
+		C0B5BCBA2396D70D00102F50 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B5BCB92396D70D00102F50 /* HomeView.swift */; };
+		C0D60C5B23313D6A0010F653 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D60C5A23313D6A0010F653 /* AppDelegate.swift */; };
+		C0D60C5D23313D6A0010F653 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D60C5C23313D6A0010F653 /* ViewController.swift */; };
+		C0D60C6023313D6A0010F653 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0D60C5E23313D6A0010F653 /* Main.storyboard */; };
+		C0D60C6223313D6B0010F653 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0D60C6123313D6B0010F653 /* Assets.xcassets */; };
+		C0D60C6523313D6B0010F653 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0D60C6323313D6B0010F653 /* LaunchScreen.storyboard */; };
+		C0D60C7023313D6B0010F653 /* Pumpy_Music_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D60C6F23313D6B0010F653 /* Pumpy_Music_iOSTests.swift */; };
+		C0D60C7B23313D6C0010F653 /* Pumpy_Music_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D60C7A23313D6C0010F653 /* Pumpy_Music_iOSUITests.swift */; };
+		C0D60C9D2333C1290010F653 /* MusicPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D60C9C2333C1290010F653 /* MusicPlayerManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C0D60C6C23313D6B0010F653 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0D60C4F23313D6A0010F653 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C0D60C5623313D6A0010F653;
+			remoteInfo = "Pumpy Music iOS";
+		};
+		C0D60C7723313D6C0010F653 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0D60C4F23313D6A0010F653 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C0D60C5623313D6A0010F653;
+			remoteInfo = "Pumpy Music iOS";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C0106185238DF29A002A60A8 /* To Do List */ = {isa = PBXFileReference; lastKnownFileType = text; name = "To Do List"; path = "Pumpy Music iOS/Controller/To Do List"; sourceTree = "<group>"; };
+		C03176902395C69900B5D766 /* TrackTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTable.swift; sourceTree = "<group>"; };
+		C03176912395C69900B5D766 /* PlaylistTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistTable.swift; sourceTree = "<group>"; };
+		C03176922395C69900B5D766 /* MusicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicManager.swift; sourceTree = "<group>"; };
+		C03176932395C69900B5D766 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C03176942395C69900B5D766 /* PlaylistRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistRow.swift; sourceTree = "<group>"; };
+		C046009B2389595C008151A5 /* MarqueeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarqueeLabel.swift; sourceTree = "<group>"; };
+		C046009E23895DC9008151A5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C087AA7D23465D42002A4873 /* AlarmAddEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmAddEditViewController.swift; sourceTree = "<group>"; };
+		C087AA7E23465D47002A4873 /* AlarmApplicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmApplicationDelegate.swift; sourceTree = "<group>"; };
+		C087AA7F23465D47002A4873 /* AlarmSchedulerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSchedulerDelegate.swift; sourceTree = "<group>"; };
+		C087AA8023465D47002A4873 /* AlarmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmModel.swift; sourceTree = "<group>"; };
+		C087AA9C23476D9B002A4873 /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
+		C087AA9D23476DAA002A4873 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
+		C087AA9F23476DD4002A4873 /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
+		C087AAA023476DE6002A4873 /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
+		C087AAA223476E14002A4873 /* MainAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAlarmViewController.swift; sourceTree = "<group>"; };
+		C087AAA323476E52002A4873 /* MediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
+		C087AAA523476E65002A4873 /* WeekdaysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdaysViewController.swift; sourceTree = "<group>"; };
+		C087AAA723476E7E002A4873 /* LabelEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelEditViewController.swift; sourceTree = "<group>"; };
+		C087AAAA23476E9E002A4873 /* SegueInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueInfo.swift; sourceTree = "<group>"; };
+		C087AAAD23476EBD002A4873 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
+		C087AAAE23476EC5002A4873 /* PropertyReflectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyReflectable.swift; sourceTree = "<group>"; };
+		C0B5BCB12395CEDA00102F50 /* TrackRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRow.swift; sourceTree = "<group>"; };
+		C0B5BCB92396D70D00102F50 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		C0D60C5723313D6A0010F653 /* Pumpy Music.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pumpy Music.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0D60C5A23313D6A0010F653 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C0D60C5C23313D6A0010F653 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C0D60C5F23313D6A0010F653 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C0D60C6123313D6B0010F653 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C0D60C6423313D6B0010F653 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C0D60C6623313D6B0010F653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0D60C6B23313D6B0010F653 /* Pumpy Music iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pumpy Music iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0D60C6F23313D6B0010F653 /* Pumpy_Music_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pumpy_Music_iOSTests.swift; sourceTree = "<group>"; };
+		C0D60C7123313D6B0010F653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0D60C7623313D6C0010F653 /* Pumpy Music iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pumpy Music iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0D60C7A23313D6C0010F653 /* Pumpy_Music_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pumpy_Music_iOSUITests.swift; sourceTree = "<group>"; };
+		C0D60C7C23313D6C0010F653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0D60C912333BF4E0010F653 /* MediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItem.swift; sourceTree = "<group>"; };
+		C0D60C922333BF510010F653 /* Artwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
+		C0D60C9B2333C0DD0010F653 /* SerializationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerializationError.swift; sourceTree = "<group>"; };
+		C0D60C9C2333C1290010F653 /* MusicPlayerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayerManager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C0D60C5423313D6A0010F653 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C04600A023895E0B008151A5 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0D60C6823313D6B0010F653 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0D60C7323313D6C0010F653 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C031768F2395C68200B5D766 /* PlaylistPicker */ = {
+			isa = PBXGroup;
+			children = (
+				C03176922395C69900B5D766 /* MusicManager.swift */,
+				C0B5BCB12395CEDA00102F50 /* TrackRow.swift */,
+				C03176902395C69900B5D766 /* TrackTable.swift */,
+				C03176942395C69900B5D766 /* PlaylistRow.swift */,
+				C03176912395C69900B5D766 /* PlaylistTable.swift */,
+			);
+			path = PlaylistPicker;
+			sourceTree = "<group>";
+		};
+		C046009D23895DC9008151A5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C046009E23895DC9008151A5 /* QuartzCore.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C087AA7C23465D38002A4873 /* Alarm Files */ = {
+			isa = PBXGroup;
+			children = (
+				C087AA9B23476D95002A4873 /* Extension */,
+				C087AA9E23476DCB002A4873 /* App */,
+				C087AAA123476E07002A4873 /* Controller */,
+				C087AAA923476E91002A4873 /* Model */,
+				C087AAAC23476EB2002A4873 /* Protocol */,
+			);
+			name = "Alarm Files";
+			sourceTree = "<group>";
+		};
+		C087AA9B23476D95002A4873 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C087AA9C23476D9B002A4873 /* UIWindow+Extension.swift */,
+				C087AA9D23476DAA002A4873 /* NotificationName+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		C087AA9E23476DCB002A4873 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C087AA9F23476DD4002A4873 /* Scheduler.swift */,
+				C087AAA023476DE6002A4873 /* Identifier.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		C087AAA123476E07002A4873 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C087AAA223476E14002A4873 /* MainAlarmViewController.swift */,
+				C087AA7D23465D42002A4873 /* AlarmAddEditViewController.swift */,
+				C087AAA323476E52002A4873 /* MediaViewController.swift */,
+				C087AAA523476E65002A4873 /* WeekdaysViewController.swift */,
+				C087AAA723476E7E002A4873 /* LabelEditViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C087AAA923476E91002A4873 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C087AA8023465D47002A4873 /* AlarmModel.swift */,
+				C087AAAA23476E9E002A4873 /* SegueInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C087AAAC23476EB2002A4873 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				C087AAAD23476EBD002A4873 /* Persistable.swift */,
+				C087AAAE23476EC5002A4873 /* PropertyReflectable.swift */,
+				C087AA7E23465D47002A4873 /* AlarmApplicationDelegate.swift */,
+				C087AA7F23465D47002A4873 /* AlarmSchedulerDelegate.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		C0D60C4E23313D6A0010F653 = {
+			isa = PBXGroup;
+			children = (
+				C0D60C5923313D6A0010F653 /* Pumpy Music iOS */,
+				C0D60C6E23313D6B0010F653 /* Pumpy Music iOSTests */,
+				C0D60C7923313D6C0010F653 /* Pumpy Music iOSUITests */,
+				C0D60C5823313D6A0010F653 /* Products */,
+				C046009D23895DC9008151A5 /* Frameworks */,
+				C0106185238DF29A002A60A8 /* To Do List */,
+			);
+			sourceTree = "<group>";
+		};
+		C0D60C5823313D6A0010F653 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C0D60C5723313D6A0010F653 /* Pumpy Music.app */,
+				C0D60C6B23313D6B0010F653 /* Pumpy Music iOSTests.xctest */,
+				C0D60C7623313D6C0010F653 /* Pumpy Music iOSUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C0D60C5923313D6A0010F653 /* Pumpy Music iOS */ = {
+			isa = PBXGroup;
+			children = (
+				C0D60C5A23313D6A0010F653 /* AppDelegate.swift */,
+				C0D60C942333BF870010F653 /* Controllers */,
+				C0D60C902333BF480010F653 /* Models */,
+				C0D60C9E2333C1490010F653 /* Views */,
+				C087AA7C23465D38002A4873 /* Alarm Files */,
+				C031768F2395C68200B5D766 /* PlaylistPicker */,
+				C0D60C6123313D6B0010F653 /* Assets.xcassets */,
+				C0D60C5E23313D6A0010F653 /* Main.storyboard */,
+				C0D60C6323313D6B0010F653 /* LaunchScreen.storyboard */,
+				C0D60C6623313D6B0010F653 /* Info.plist */,
+			);
+			path = "Pumpy Music iOS";
+			sourceTree = "<group>";
+		};
+		C0D60C6E23313D6B0010F653 /* Pumpy Music iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				C0D60C6F23313D6B0010F653 /* Pumpy_Music_iOSTests.swift */,
+				C0D60C7123313D6B0010F653 /* Info.plist */,
+			);
+			path = "Pumpy Music iOSTests";
+			sourceTree = "<group>";
+		};
+		C0D60C7923313D6C0010F653 /* Pumpy Music iOSUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C0D60C7A23313D6C0010F653 /* Pumpy_Music_iOSUITests.swift */,
+				C0D60C7C23313D6C0010F653 /* Info.plist */,
+			);
+			path = "Pumpy Music iOSUITests";
+			sourceTree = "<group>";
+		};
+		C0D60C902333BF480010F653 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C0D60C9B2333C0DD0010F653 /* SerializationError.swift */,
+				C0D60C922333BF510010F653 /* Artwork.swift */,
+				C0D60C912333BF4E0010F653 /* MediaItem.swift */,
+				C046009B2389595C008151A5 /* MarqueeLabel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C0D60C942333BF870010F653 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C0D60C9C2333C1290010F653 /* MusicPlayerManager.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C0D60C9E2333C1490010F653 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C03176932395C69900B5D766 /* SceneDelegate.swift */,
+				C0D60C5C23313D6A0010F653 /* ViewController.swift */,
+				C0B5BCB92396D70D00102F50 /* HomeView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C0D60C5623313D6A0010F653 /* Pumpy Music iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0D60C7F23313D6C0010F653 /* Build configuration list for PBXNativeTarget "Pumpy Music iOS" */;
+			buildPhases = (
+				C0D60C5323313D6A0010F653 /* Sources */,
+				C0D60C5423313D6A0010F653 /* Frameworks */,
+				C0D60C5523313D6A0010F653 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pumpy Music iOS";
+			productName = "Pumpy Music iOS";
+			productReference = C0D60C5723313D6A0010F653 /* Pumpy Music.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C0D60C6A23313D6B0010F653 /* Pumpy Music iOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0D60C8223313D6C0010F653 /* Build configuration list for PBXNativeTarget "Pumpy Music iOSTests" */;
+			buildPhases = (
+				C0D60C6723313D6B0010F653 /* Sources */,
+				C0D60C6823313D6B0010F653 /* Frameworks */,
+				C0D60C6923313D6B0010F653 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C0D60C6D23313D6B0010F653 /* PBXTargetDependency */,
+			);
+			name = "Pumpy Music iOSTests";
+			productName = "Pumpy Music iOSTests";
+			productReference = C0D60C6B23313D6B0010F653 /* Pumpy Music iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C0D60C7523313D6C0010F653 /* Pumpy Music iOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0D60C8523313D6C0010F653 /* Build configuration list for PBXNativeTarget "Pumpy Music iOSUITests" */;
+			buildPhases = (
+				C0D60C7223313D6C0010F653 /* Sources */,
+				C0D60C7323313D6C0010F653 /* Frameworks */,
+				C0D60C7423313D6C0010F653 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C0D60C7823313D6C0010F653 /* PBXTargetDependency */,
+			);
+			name = "Pumpy Music iOSUITests";
+			productName = "Pumpy Music iOSUITests";
+			productReference = C0D60C7623313D6C0010F653 /* Pumpy Music iOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C0D60C4F23313D6A0010F653 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1030;
+				LastUpgradeCheck = 1030;
+				ORGANIZATIONNAME = "Jack Vanderpump";
+				TargetAttributes = {
+					C0D60C5623313D6A0010F653 = {
+						CreatedOnToolsVersion = 10.3;
+					};
+					C0D60C6A23313D6B0010F653 = {
+						CreatedOnToolsVersion = 10.3;
+						TestTargetID = C0D60C5623313D6A0010F653;
+					};
+					C0D60C7523313D6C0010F653 = {
+						CreatedOnToolsVersion = 10.3;
+						TestTargetID = C0D60C5623313D6A0010F653;
+					};
+				};
+			};
+			buildConfigurationList = C0D60C5223313D6A0010F653 /* Build configuration list for PBXProject "Pumpy Music iOS" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C0D60C4E23313D6A0010F653;
+			productRefGroup = C0D60C5823313D6A0010F653 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C0D60C5623313D6A0010F653 /* Pumpy Music iOS */,
+				C0D60C6A23313D6B0010F653 /* Pumpy Music iOSTests */,
+				C0D60C7523313D6C0010F653 /* Pumpy Music iOSUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C0D60C5523313D6A0010F653 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0106186238DF29A002A60A8 /* To Do List in Resources */,
+				C0D60C6523313D6B0010F653 /* LaunchScreen.storyboard in Resources */,
+				C0D60C6223313D6B0010F653 /* Assets.xcassets in Resources */,
+				C0D60C6023313D6A0010F653 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0D60C6923313D6B0010F653 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0D60C7423313D6C0010F653 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C0D60C5323313D6A0010F653 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C087AAB523476F06002A4873 /* PropertyReflectable.swift in Sources */,
+				C087AAB423476F03002A4873 /* Persistable.swift in Sources */,
+				C087AAB323476EF4002A4873 /* MainAlarmViewController.swift in Sources */,
+				C087AAAB23476E9E002A4873 /* SegueInfo.swift in Sources */,
+				C087AAA423476E52002A4873 /* MediaViewController.swift in Sources */,
+				C087AA9823468208002A4873 /* AlarmAddEditViewController.swift in Sources */,
+				C087AAAF23476EE6002A4873 /* Identifier.swift in Sources */,
+				C0B5BCB72395CF1600102F50 /* PlaylistTable.swift in Sources */,
+				C087AA992346820D002A4873 /* AlarmModel.swift in Sources */,
+				C087AAB123476EED002A4873 /* NotificationName+Extension.swift in Sources */,
+				C0B5BCB52395CF1000102F50 /* MusicManager.swift in Sources */,
+				C087AA9A23468210002A4873 /* AlarmSchedulerDelegate.swift in Sources */,
+				C0B5BCB42395CF0C00102F50 /* TrackTable.swift in Sources */,
+				C0B5BCB62395CF1300102F50 /* PlaylistRow.swift in Sources */,
+				C0B5BCBA2396D70D00102F50 /* HomeView.swift in Sources */,
+				C087AAA823476E7E002A4873 /* LabelEditViewController.swift in Sources */,
+				C087AA97234681CA002A4873 /* AlarmApplicationDelegate.swift in Sources */,
+				C016F76F239A9E3000A2B26F /* TrackRow.swift in Sources */,
+				C087AAB223476EEF002A4873 /* Scheduler.swift in Sources */,
+				C0D60C9D2333C1290010F653 /* MusicPlayerManager.swift in Sources */,
+				C087AAB023476EEA002A4873 /* UIWindow+Extension.swift in Sources */,
+				C0B5BCB82396A59600102F50 /* SceneDelegate.swift in Sources */,
+				C087AAA623476E65002A4873 /* WeekdaysViewController.swift in Sources */,
+				C046009C2389595C008151A5 /* MarqueeLabel.swift in Sources */,
+				C0D60C5D23313D6A0010F653 /* ViewController.swift in Sources */,
+				C0D60C5B23313D6A0010F653 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0D60C6723313D6B0010F653 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0D60C7023313D6B0010F653 /* Pumpy_Music_iOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0D60C7223313D6C0010F653 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0D60C7B23313D6C0010F653 /* Pumpy_Music_iOSUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C0D60C6D23313D6B0010F653 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C0D60C5623313D6A0010F653 /* Pumpy Music iOS */;
+			targetProxy = C0D60C6C23313D6B0010F653 /* PBXContainerItemProxy */;
+		};
+		C0D60C7823313D6C0010F653 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C0D60C5623313D6A0010F653 /* Pumpy Music iOS */;
+			targetProxy = C0D60C7723313D6C0010F653 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C0D60C5E23313D6A0010F653 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C0D60C5F23313D6A0010F653 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C0D60C6323313D6B0010F653 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C0D60C6423313D6B0010F653 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C0D60C7D23313D6C0010F653 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C0D60C7E23313D6C0010F653 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C0D60C8023313D6C0010F653 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = A4D4DKAPHN;
+				INFOPLIST_FILE = "Pumpy Music iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Pumpy-Music.Pumpy";
+				PRODUCT_NAME = "Pumpy Music";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C0D60C8123313D6C0010F653 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = A4D4DKAPHN;
+				INFOPLIST_FILE = "Pumpy Music iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Pumpy-Music.Pumpy";
+				PRODUCT_NAME = "Pumpy Music";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C0D60C8323313D6C0010F653 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A4D4DKAPHN;
+				INFOPLIST_FILE = "Pumpy Music iOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Pumpy-Music.Pumpy-Music-iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pumpy Music iOS.app/Pumpy Music iOS";
+			};
+			name = Debug;
+		};
+		C0D60C8423313D6C0010F653 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A4D4DKAPHN;
+				INFOPLIST_FILE = "Pumpy Music iOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Pumpy-Music.Pumpy-Music-iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pumpy Music iOS.app/Pumpy Music iOS";
+			};
+			name = Release;
+		};
+		C0D60C8623313D6C0010F653 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A4D4DKAPHN;
+				INFOPLIST_FILE = "Pumpy Music iOSUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Pumpy-Music.Pumpy-Music-iOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Pumpy Music iOS";
+			};
+			name = Debug;
+		};
+		C0D60C8723313D6C0010F653 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A4D4DKAPHN;
+				INFOPLIST_FILE = "Pumpy Music iOSUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Pumpy-Music.Pumpy-Music-iOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Pumpy Music iOS";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C0D60C5223313D6A0010F653 /* Build configuration list for PBXProject "Pumpy Music iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0D60C7D23313D6C0010F653 /* Debug */,
+				C0D60C7E23313D6C0010F653 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0D60C7F23313D6C0010F653 /* Build configuration list for PBXNativeTarget "Pumpy Music iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0D60C8023313D6C0010F653 /* Debug */,
+				C0D60C8123313D6C0010F653 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0D60C8223313D6C0010F653 /* Build configuration list for PBXNativeTarget "Pumpy Music iOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0D60C8323313D6C0010F653 /* Debug */,
+				C0D60C8423313D6C0010F653 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0D60C8523313D6C0010F653 /* Build configuration list for PBXNativeTarget "Pumpy Music iOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0D60C8623313D6C0010F653 /* Debug */,
+				C0D60C8723313D6C0010F653 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C0D60C4F23313D6A0010F653 /* Project object */;
+}
