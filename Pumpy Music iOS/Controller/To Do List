@@ -1,0 +1,20 @@
+Look at PlayPlaylistNext function
+Store playlist label
+Sort out prepend function
+
+Online table
+Remote
+
+
+
+
+// MARK: How to Prepend
+//            let myMediaQuery = MPMediaQuery.songs()
+//            let predicateFilter = MPMediaPropertyPredicate(value: chosenPlaylist, forProperty: MPMediaPlaylistPropertyName)
+//            myMediaQuery.filterPredicates = NSSet(object: predicateFilter) as? Set<MPMediaPredicate>
+//            let newCollections = myMediaQuery.collections?.shuffled()
+//            let newQuery: MPMediaQuery
+//            newQuery.
+//            let qd: MPMusicPlayerMediaItemQueueDescriptor = .init(itemCollection: newQuery)
+//            musicPlayerController.prepend(qd)
+//            musicPlayerController.repeatMode = .all
