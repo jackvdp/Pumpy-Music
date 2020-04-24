@@ -9,21 +9,21 @@
 import UIKit
 import MediaPlayer
 import Foundation
-import AudioToolbox
-import AVFoundation
+import UserNotifications
+import Firebase
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     var audioPlayer: AVAudioPlayer?
-    let alarmScheduler: AlarmSchedulerDelegate = Scheduler()
-    var alarmModel: Alarms = Alarms()
-    var musicPlayerManager: MusicPlayerManager = MusicPlayerManager()
-    var viewController: ViewController = ViewController()
     let sharedMusicManager = MusicManager.sharedMusicManager
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        FirebaseApp.configure()
+        let db = Firestore.firestore()
+        print(db)
         
         if #available(iOS 13.0, *) {
             window?.overrideUserInterfaceStyle = .dark
@@ -32,7 +32,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
             // Fallback on earlier versions
         }
         
+        application.applicationIconBadgeNumber = 0
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .carPlay], completionHandler: { (granted, error) in
+            if granted {
+                print("Allowed.")
+            } else {
+                print("Not allowed.")
+            }
+        })
+        
+        // Add category
+        let snoozeAction = UNNotificationAction(identifier: NotificationAction.Snooze.rawValue, title: NotificationAction.Snooze.rawValue, options: [])
+        let dislikeAction = UNNotificationAction(identifier: NotificationAction.Stop.rawValue, title: NotificationAction.Stop.rawValue, options: [.destructive])
+        
+        let category = UNNotificationCategory(identifier: NotificationCategory.AlarmNotification.rawValue, actions: [snoozeAction, dislikeAction], intentIdentifiers: [], options: [])
+        
+        UNUserNotificationCenter.current().setNotificationCategories([category])
+        
+        // Showing notification at foreground
+        UNUserNotificationCenter.current().delegate = self
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self,
+                                       selector: #selector(appSettingsDidChange),
+                                       name: UserDefaults.didChangeNotification,
+                                       object: nil)
+        
+        UIApplication.shared.registerForRemoteNotifications()
+        
             return true
+    }
+    
+    @objc func appSettingsDidChange() {
+        let alarmArray = AlarmData.loadData()
+        
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        
+        for alarmToAdd in alarmArray {
+            NotificationPush().scheduleNotification(alarm: alarmToAdd)
+        }
     }
     
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -48,52 +87,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
        }
     
     
-    //receive local notification when app in foreground
-    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+        // Get notification at foreground
+        func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+            completionHandler([.sound, .alert])
+            print("Get notification at foreground...")
+            
+            let playlistLabel = notification.request.content.userInfo["playlistLabel"]
+            print(playlistLabel ?? "Nada")
+            sharedMusicManager.playPlaylistNext(chosenPlaylist: playlistLabel as? String)
         
-        //show an alert window
-        var playlistName: String = ""
-        if let userInfo = notification.userInfo {
-            playlistName = userInfo["soundName"] as! String
+            
         }
-        sharedMusicManager.playPlaylistNow(chosenPlaylist: playlistName)
-    }
 
-    
-    //snooze notification handler when app in background
-    func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, for notification: UILocalNotification, completionHandler: @escaping () -> Void) {
-           var index: Int = -1
-           var playlistName: String = ""
-           if let userInfo = notification.userInfo {
-               playlistName = userInfo["soundName"] as! String
-               index = userInfo["index"] as! Int
-           }
-        
-            musicPlayerManager.playPlaylist(chosenPlaylist: playlistName)
-            print("Here in the BG")
-           self.alarmModel = Alarms()
-           self.alarmModel.alarms[index].onSnooze = false
-           if identifier == Id.snoozeIdentifier {
-               alarmScheduler.setNotificationForSnooze(snoozeMinute: 9, soundName: playlistName, index: index)
-               self.alarmModel.alarms[index].onSnooze = true
-           }
-           completionHandler()
-       }
+        func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 
-    
-    //print out all registed NSNotification for debug
-    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
-        print(notificationSettings.types.rawValue)
-    }
-    
-    //AVAudioPlayerDelegate protocol
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        
-    }
-    
-    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
-        
-    }
+            center.getPendingNotificationRequests { (requests) in
+                print(requests)
+            }
+            
+            completionHandler()
+        }
+
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -103,6 +117,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
+        
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -117,9 +133,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-    // Helper function inserted by Swift 4.2 migrator.
-    fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
-        return input.rawValue
+    
+    func application(_ application: UIApplication,
+                didRegisterForRemoteNotificationsWithDeviceToken
+                    deviceToken: Data) {
+    }
+
+    func application(_ application: UIApplication,
+                didFailToRegisterForRemoteNotificationsWithError
+                    error: Error) {
+       // Try again later.
     }
     
 }
