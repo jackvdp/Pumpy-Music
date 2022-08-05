@@ -11,77 +11,33 @@ import MediaPlayer
 import SwiftUI
 import Scheduler
 
-//struct Playlist: ScheduledPlaylist {
-//
-//    init(item: MPMediaPlaylist) {
-//        name = item.name
-//        items = item.items.map { i in
-//            let timer = ParkBenchTimer()
-//
-//            let values: Set = [MPMediaItemPropertyTitle,
-//                               MPMediaItemPropertyArtist,
-//                               MPMediaItemPropertyArtwork,
-//                               MPMediaItemPropertyPlaybackStoreID,
-//                               MPMediaItemPropertyIsExplicit]
-//
-//            var allProperties: [String: Any] = [:]
-//            i.enumerateValues(forProperties: values, using: {key,value,_ in allProperties[key] = value})
-//
-//            let t = Track(title: allProperties[MPMediaItemPropertyTitle] as? String ?? "N/A",
-//                  artist: allProperties[MPMediaItemPropertyArtist] as? String ?? "N/A",
-//                  artwork: nil, //allProperties[MPMediaItemPropertyArtwork] as? MPMediaItemArtwork,
-//                  playbackID: allProperties[MPMediaItemPropertyPlaybackStoreID] as? String ?? "N/A",
-//                  isExplicit: allProperties[MPMediaItemPropertyIsExplicit] as? Bool ?? false)
-//
-////            let t = Track(title: i.title ?? "N/A",
-////                         artist: i.artist ?? "N/A",
-////                          artwork: i.artwork,
-////                         playbackID: i.playbackStoreID,
-////                         isExplicit: i.isExplicitItem)
-//
-//            timer.stop()
-//            return t
-//        }
-//        artwork = item.representativeItem?.artwork
-//        cloudID = item.cloudGlobalID
-//    }
-//
-//    var name: String?
-//    var items: [Track]
-//    var artwork: MPMediaItemArtwork?
-//    var cloudID: String?
-//    var id = UUID()
-//
-//}
+protocol Track {
+    var title: String? { get }
+    var artist: String? { get }
+    var artwork: MPMediaItemArtwork? { get }
+    var playbackStoreID: String { get }
+    var isExplicitItem: Bool { get }
+    
+    func getBlockedTrack() -> BlockedTrack
+}
 
-//extension MPMediaPlaylist: ScheduledPlaylist {}
-//
-//struct Track: Hashable {
-//    var title: String
-//    var artist: String
-//    var artwork: MPMediaItemArtwork?
-//    var playbackID: String
-//    var isExplicit: Bool
-//    var features: AudioFeatures?
-//    var id = UUID()
-//}
-//
-//extension Track {
-//    init(track: MPMediaItem) {
-//        title = track.title ?? "N/A"
-//        artist = track.artist ?? "N/A"
-//        playbackID = track.playbackStoreID
-//        isExplicit = track.isExplicitItem
-//        artwork = track.artwork
-//    }
-//
-//    func getBlockedTrack() -> BlockedTrack {
-//        return BlockedTrack(title: self.title,
-//                            artist: self.artist,
-//                            isExplicit: self.isExplicit,
-//                            playbackID: self.playbackID)
-//    }
-//}
+extension MPMediaItem: Track {
+    func getBlockedTrack() -> BlockedTrack {
+        return BlockedTrack(title: self.title,
+                            artist: self.artist,
+                            isExplicit: self.isExplicitItem,
+                            playbackID: self.playbackStoreID)
+    }
+}
+
+protocol Playlist {
+    var name: String? { get }
+    var items: [MPMediaItem] { get }
+    var cloudGlobalID: String? { get }
+    var representativeItem: MPMediaItem? { get }
+}
+
+extension MPMediaPlaylist: Playlist, ScheduledPlaylist {}
 
 struct BlockedTrack: Codable, Hashable {
     var title: String?
@@ -90,8 +46,35 @@ struct BlockedTrack: Codable, Hashable {
     var playbackID: String
 }
 
-extension MPMusicPlayerApplicationController {
+struct PreviewTrack: Track {
+    var title: String?
+    var artist: String?
+    var artwork: MPMediaItemArtwork?
+    var playbackStoreID: String
+    var isExplicitItem: Bool
+    
+    func getBlockedTrack() -> BlockedTrack {
+        return BlockedTrack(title: self.title,
+                            artist: self.artist,
+                            isExplicit: self.isExplicitItem,
+                            playbackID: self.playbackStoreID)
+    }
+}
 
+struct MockData {
+    static let playlist = PreviewPlaylist(name: "Test", items: [], cloudGlobalID: "", representativeItem: nil)
+    static let track = PreviewTrack(title: "Test", artist: "Test", artwork: nil, playbackStoreID: "", isExplicitItem: true)
+}
+
+struct PreviewPlaylist: Playlist {
+    var name: String?
+    var items: [MPMediaItem]
+    var cloudGlobalID: String?
+    var representativeItem: MPMediaItem?
+}
+
+extension MPMusicPlayerApplicationController {
+    
     open override func prepend(_ descriptor: MPMusicPlayerQueueDescriptor) {
         super.prepend(descriptor)
         let nc = NotificationCenter.default
@@ -129,11 +112,11 @@ enum PlayButton: String {
 class ParkBenchTimer {
     let startTime: CFAbsoluteTime
     var endTime: CFAbsoluteTime?
-
+    
     init() {
         startTime = CFAbsoluteTimeGetCurrent()
     }
-
+    
     func stop() -> CFAbsoluteTime {
         endTime = CFAbsoluteTimeGetCurrent()
         let d = endTime! - startTime
@@ -141,7 +124,7 @@ class ParkBenchTimer {
         
         return d
     }
-
+    
     var duration: CFAbsoluteTime? {
         if let endTime = endTime {
             return endTime - startTime

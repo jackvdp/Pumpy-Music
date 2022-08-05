@@ -67,7 +67,7 @@ struct SongLabels_Previews: PreviewProvider {
     static let user = User(username: "Test")
     
     static var previews: some View {
-        user.musicManager.nowPlayingManager.currentTrack = Track(title: "Song name", artist: "Artist name", playbackID: "", isExplicit: true)
+        user.musicManager.nowPlayingManager.currentTrack = MockData.track
         user.musicManager.playlistManager.playlistLabel = "Tets Playlist"
         return SongLabels()
             .environmentObject(user.musicManager)

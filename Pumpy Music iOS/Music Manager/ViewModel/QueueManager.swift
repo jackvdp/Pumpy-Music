@@ -68,7 +68,7 @@ class QueueManager: ObservableObject {
             self.backgroundQueue.async {
                 self.semaphore.wait()
                 let i = Array(items)
-                let tracks = i.map { Track(track: $0) }
+                let tracks = i
                 DispatchQueue.main.async {
                     self.queueTracks = tracks
                     self.semaphore.signal()

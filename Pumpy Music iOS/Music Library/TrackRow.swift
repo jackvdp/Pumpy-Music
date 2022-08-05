@@ -10,7 +10,7 @@ import SwiftUI
 import MediaPlayer
 import PumpyLibrary
 
-struct TrackRow : View {
+struct TrackRow: View {
     
     var track: Track
     @State private var image: UIImage = UIImage(imageLiteralResourceName: K.defaultArtwork)
@@ -26,17 +26,17 @@ struct TrackRow : View {
                 .cornerRadius(10)
             VStack(alignment: .leading, spacing: 5.0) {
                 HStack(alignment: .center, spacing: 10.0) {
-                    Text(track.title)
+                    Text(track.title ?? "N/A")
                         .font(.headline)
                         .lineLimit(1)
-                    if track.isExplicit {
+                    if track.isExplicitItem {
                         Image(systemName: "e.square")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 12, height: 12, alignment: .center)
                     }
                 }
-                Text(track.artist)
+                Text(track.artist ?? "N/A")
                     .font(.subheadline)
                     .lineLimit(1)
             }
@@ -60,7 +60,7 @@ struct TrackRow : View {
 #if DEBUG
 struct TrackRow_Previews: PreviewProvider {
     
-    static let track: Track = Track(title: "Song name", artist: "Artist name", playbackID: "", isExplicit: true)
+    static let track = PreviewTrack(title: "Song name", artist: "Artist name", playbackStoreID: "", isExplicitItem: true)
     
     static var previews: some View {
         

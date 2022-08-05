@@ -33,7 +33,7 @@ class Artwork {
     func getArtworkFromStore(from track: Track, size: Int, completion: @escaping (UIImage) -> Void) {
         if let token = appleMusicToken, let storefront = appleMusicStoreFront {
             let amAPI = AppleMusicAPI(token: token, storeFront: storefront)
-            let id = track.playbackID
+            let id = track.playbackStoreID
             amAPI.getArtworkURL(id: id) { (artworkString) in
                 if let artworkURL = Artwork.makeMusicStoreURL(artworkString, size: size) {
                     Artwork.fetchImage(from: artworkURL) { (image) in

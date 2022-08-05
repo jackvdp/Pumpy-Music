@@ -8,6 +8,7 @@
 
 import Foundation
 import MediaPlayer
+import Scheduler
 
 class MusicContent {
     
@@ -15,7 +16,17 @@ class MusicContent {
         if let playlistsAndFolders = MPMediaQuery.playlists().collections {
             let playlists = playlistsAndFolders.filter { !($0.value(forProperty: "isFolder") as? Bool ?? false) }
             if let plists = playlists as? [MPMediaPlaylist] {
-                return plists.map { Playlist(item: $0) }
+                return plists
+            }
+        }
+        return []
+    }
+    
+    static func getScheduledPlaylists() -> [ScheduledPlaylist] {
+        if let playlistsAndFolders = MPMediaQuery.playlists().collections {
+            let playlists = playlistsAndFolders.filter { !($0.value(forProperty: "isFolder") as? Bool ?? false) }
+            if let plists = playlists as? [MPMediaPlaylist] {
+                return plists
             }
         }
         return []
@@ -23,8 +34,7 @@ class MusicContent {
     
     static func getTracks(for playlist: MPMediaPlaylist) -> [Track] {
         let songs = playlist.items
-        let tracks = songs.map { Track(track: $0) }
-        return tracks.sorted { $0.artist < $1.artist }
+        return songs.sorted { $0.artist ?? "" < $1.artist ?? "" }
     }
     
     static func getListOfPlaylistNames() -> [String] {

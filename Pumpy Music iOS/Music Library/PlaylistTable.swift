@@ -16,7 +16,7 @@ struct PlaylistTable: View {
     @State private var tableView: UITableView?
     
     var body: some View {
-        List(playlists, id: \.id) { playlistSingle in
+        List(playlists, id: \.cloudGlobalID) { playlistSingle in
             NavigationLink(destination: TrackTable(playlist: playlistSingle)) {
                 PlaylistRow(playlist: playlistSingle)
             }

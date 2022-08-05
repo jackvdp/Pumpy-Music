@@ -41,7 +41,7 @@ struct UpNextView: View {
                                 }
                             }
                             .foregroundColor(i != queueManager.queueIndex ? .white : .pumpyPink)
-                            .id(track.id)
+                            .id(track.playbackStoreID)
                     }
                 }
                 .onDelete { indexSet in
@@ -50,7 +50,7 @@ struct UpNextView: View {
                 .listRowBackground(Color.clear)
             }
             .listStyle(PlainListStyle())
-            .onChange(of: queueManager.queueTracks) { tracks in
+            .onChange(of: queueManager.queueTracks as! [MPMediaItem]) { tracks in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     scroll(proxy)
                 }
@@ -69,7 +69,7 @@ struct UpNextView: View {
     func scroll(_ proxy: ScrollViewProxy) {
         if let track = queueManager.queueTracks[safe: queueManager.queueIndex + 1] {
             withAnimation {
-                proxy.scrollTo(track.id, anchor: .top)
+                proxy.scrollTo(track.playbackStoreID, anchor: .top)
             }
         }
     }
@@ -87,7 +87,7 @@ struct UpNextView: View {
             if queueManager.queueTracks.indices.contains(i) {
                 let track = queueManager.queueTracks[i]
                 queueManager.queueTracks.remove(at: i)
-                queueManager.removeFromQueue(id: track.playbackID)
+                queueManager.removeFromQueue(id: track.playbackStoreID)
             }
         }
     }
@@ -105,13 +105,12 @@ struct UpNextView_Previews: PreviewProvider {
     static var previews: some View {
         
         queueManager.queueTracks = [
-            Track(title: "Na", artist: "Na", playbackID: "Na", isExplicit: true),
-            Track(title: "Na", artist: "Na", playbackID: "Na", isExplicit: true),
-            Track(title: "Na", artist: "Na", playbackID: "Na", isExplicit: true),
-            Track(title: "Na", artist: "Na", playbackID: "Na", isExplicit: true),
-            Track(title: "Na", artist: "Na", playbackID: "Na", isExplicit: true),
-            Track(title: "Na", artist: "Na", playbackID: "Na", isExplicit: true),
-            Track(title: "Na", artist: "Na", playbackID: "Na", isExplicit: true)
+            PreviewTrack(title: "Na", artist: "Na", playbackStoreID: "Na", isExplicitItem: true),
+            PreviewTrack(title: "Na", artist: "Na", playbackStoreID: "Na", isExplicitItem: true),
+            PreviewTrack(title: "Na", artist: "Na", playbackStoreID: "Na", isExplicitItem: true),
+            PreviewTrack(title: "Na", artist: "Na", playbackStoreID: "Na", isExplicitItem: true),
+            PreviewTrack(title: "Na", artist: "Na", playbackStoreID: "Na", isExplicitItem: true),
+            PreviewTrack(title: "Na", artist: "Na", playbackStoreID: "Na", isExplicitItem: true)
         ]
         
         return UpNextView()

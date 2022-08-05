@@ -95,7 +95,7 @@ struct HomeView_Previews: PreviewProvider {
     
     static var user: User {
         let u = User(username: "Test")
-        u.musicManager.nowPlayingManager.currentTrack = Track(title: "Test", artist: "Test", playbackID: "11", isExplicit: true)
+        u.musicManager.nowPlayingManager.currentTrack = PreviewTrack(title: "Test", artist: "Test", playbackStoreID: "11", isExplicitItem: true)
         u.musicManager.playlistManager.playlistLabel = "Test Playlist"
         return u
     }

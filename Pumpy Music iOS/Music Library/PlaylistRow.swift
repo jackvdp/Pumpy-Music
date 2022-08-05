@@ -30,6 +30,6 @@ struct PlaylistRow : View {
 
 struct PlaylistRow_Previews: PreviewProvider {
     static var previews: some View {
-        PlaylistRow(playlist: Playlist(item: MPMediaPlaylist()))
+        PlaylistRow(playlist: MockData.playlist)
     }
 }

@@ -26,9 +26,9 @@ struct TrackTable: View {
                     Text(tracks.count == 1 ? "1 song" : "\(tracks.count) songs")
                         .font(.footnote)
                         .foregroundColor(Color.gray)
-                    ForEach(tracks, id: \.id) { track in
+                    ForEach(tracks, id: \.playbackStoreID) { track in
                         Divider()
-                        TrackRow(track: track).id(track.id)
+                        TrackRow(track: track).id(track.playbackStoreID)
                     }
                 }
                 .padding(.leading)
@@ -60,7 +60,7 @@ struct TrackTable: View {
 #if DEBUG
 struct TrackTable_Previews: PreviewProvider {
     static var previews: some View {
-        TrackTable(playlist: Playlist(item: MPMediaPlaylist()))
+        TrackTable(playlist: PreviewPlaylist(name: "Test", items: [], cloudGlobalID: "", representativeItem: nil))
             .environmentObject(MusicManager(username: "Test", settingsManager: SettingsManager(username: "Test")))
             .environmentObject(HomeVM())
     }

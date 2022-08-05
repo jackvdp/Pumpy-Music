@@ -30,12 +30,12 @@ class NowPlayingManager: ObservableObject {
     func updateTrackData(tokenManager: TokenManager) {
         if let nowPlayingItem = musicPlayerController.nowPlayingItem {
             Artwork(token: tokenManager.appleMusicToken, store: tokenManager.appleMusicStoreFront)
-                .getArtwork(from: Track(track: nowPlayingItem), size: 500) { image in
+                .getArtwork(from: nowPlayingItem, size: 500) { image in
                 DispatchQueue.main.async {
                     self.currentArtwork = image
                 }
             }
-            currentTrack = Track(track: nowPlayingItem)
+            currentTrack = nowPlayingItem
 
             if let token = spotifyTokenManager.spotifyToken {
                 SpotifyAPI(spotifyToken: token).getAudioFeaturesofTrack(id: nowPlayingItem.playbackStoreID) { features in

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import MediaPlayer
 
 struct DislikeButton: View {
     
@@ -38,7 +39,7 @@ struct DislikeButton: View {
         .onChange(of: blockedTracksManager.blockedTracks) { _ in
             setButton()
         }
-        .onChange(of: nowPlayingManager?.currentTrack) { _ in
+        .onChange(of: nowPlayingManager?.currentTrack as! MPMediaItem) { _ in
             setButton()
         }
     }
@@ -46,7 +47,7 @@ struct DislikeButton: View {
     func setButton() {
         withAnimation {
             if blockedTracksManager.blockedTracks
-                .contains(where: { $0.playbackID == track.playbackID}) {
+                .contains(where: { $0.playbackID == track.playbackStoreID}) {
                 rotation = 180
                 colour = .red
             } else {
@@ -57,7 +58,7 @@ struct DislikeButton: View {
     }
     
     func createAlert() -> Alert {
-        return Alert(title: Text("Block \(track.title) by \(track.artist)"),
+        return Alert(title: Text("Block \(track.title ?? "") by \(track.artist ?? "")"),
                      message: Text("Blocked tracks will be removed from playback."),
                      primaryButton: .default(Text("Cancel"), action: {}),
                      secondaryButton: .destructive(Text("Block"),
@@ -73,7 +74,7 @@ struct DislikeButton_Previews: PreviewProvider {
     
     static let musicManager = MusicManager(username: "Test", settingsManager: SettingsManager(username: "Test"))
     
-    static let track: Track = Track(title: "Song name", artist: "Artist name", playbackID: "", isExplicit: true)
+    static let track = PreviewTrack(title: "Song name", artist: "Artist name", playbackStoreID: "", isExplicitItem: true)
     
     static var previews: some View {
         DislikeButton(track: track)

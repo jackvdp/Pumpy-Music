@@ -25,7 +25,7 @@ class PlaybackData {
     static func savePlaylistsOnline(for username: String) {
         let playlists = MusicContent.getPlaylists().map {
             PlaylistOnline(name: $0.name ?? "",
-                           id: $0.cloudID ?? "")
+                           id: $0.cloudGlobalID ?? "")
         }
         FireMethods.save(object: playlists,
                          name: username,
@@ -46,9 +46,9 @@ class PlaybackData {
     }
     
     static func saveCurrentQueueOnline(items: [Track], for username: String) {
-        let tracks = items.map { TrackOnline(name: $0.title,
-                                             artist: $0.artist,
-                                             id: $0.playbackID)}
+        let tracks = items.map { TrackOnline(name: $0.title ?? "",
+                                             artist: $0.artist ?? "",
+                                             id: $0.playbackStoreID)}
         FireMethods.save(object: tracks,
                          name: username,
                          documentName: K.FStore.upNext,

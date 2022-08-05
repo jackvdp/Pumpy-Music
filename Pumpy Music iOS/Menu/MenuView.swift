@@ -58,7 +58,7 @@ struct MenuView: View {
     var scheduleAndBlocked: some View {
         Section {
             if settings.settings.showScheduler {
-                NavigationLink(destination: ScheduleView(user: user, getPlists: MusicContent.getPlaylists)) {
+                NavigationLink(destination: ScheduleView(user: user, getPlists: MusicContent.getScheduledPlaylists)) {
                     MenuRow(title: "Playlist Schedule", imageName: "clock")
                 }
             }

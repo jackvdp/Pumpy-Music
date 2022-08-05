@@ -14,4 +14,5 @@ public protocol ScheduledUser {
 
 public protocol ScheduledPlaylist {
     var name: String? { get }
+    var cloudGlobalID: String? { get }
 }
