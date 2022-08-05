@@ -8,12 +8,21 @@
 
 import SwiftUI
 
-struct ScheduleView: View {
+public struct ScheduleView: View {
     
     @StateObject var scheduleViewModel: ScheduleViewModel
     @State private var actionSegue = false
     
-    var body: some View {
+    public init(user: ScheduledUser,
+                getPlists: @escaping () -> [ScheduledPlaylist]) {
+        _scheduleViewModel = StateObject(
+            wrappedValue:
+                ScheduleViewModel(
+                    user: user,
+                    getPlists: getPlists))
+    }
+    
+    public var body: some View {
         ZStack {
             if scheduleViewModel.alarmArrayToView.isEmpty {
                 Text("No Events")
@@ -64,9 +73,15 @@ struct ScheduleView: View {
     
 }
 
+#if DEBUG
 struct ScheduleView_Previews: PreviewProvider {
     
-    static let scheduleView = ScheduleView(scheduleViewModel: ScheduleViewModel(user: User(username: "Test")))
+    struct TestUser: ScheduledUser {
+        var username: String = "Test"
+        var alarmData = AlarmData(username: "Test")
+    }
+    
+    static let scheduleView = ScheduleView(user: TestUser(), getPlists: {return []})
     
     static var previews: some View {
         return NavigationView {
@@ -74,3 +89,4 @@ struct ScheduleView_Previews: PreviewProvider {
         }.padding()
     }
 }
+#endif

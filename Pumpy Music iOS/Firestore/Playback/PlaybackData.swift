@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 import CodableFirebase
 import MediaPlayer
+import PumpyLibrary
 
 class PlaybackData {
     
@@ -23,8 +24,8 @@ class PlaybackData {
     
     static func savePlaylistsOnline(for username: String) {
         let playlists = MusicContent.getPlaylists().map {
-            PlaylistOnline(name: $0.item.name ?? "",
-                           id: $0.item.cloudGlobalID ?? "")
+            PlaylistOnline(name: $0.name ?? "",
+                           id: $0.cloudID ?? "")
         }
         FireMethods.save(object: playlists,
                          name: username,

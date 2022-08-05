@@ -8,6 +8,7 @@
 
 import Foundation
 import MediaPlayer
+import PumpyLibrary
 
 class Crossfade {
     var volume: Int = 100

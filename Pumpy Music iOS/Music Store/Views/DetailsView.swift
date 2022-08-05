@@ -9,6 +9,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 import AlertToast
+import PumpyLibrary
 
 struct DetailsView: View {
     
@@ -64,7 +65,7 @@ struct DetailsView: View {
 struct ItemsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            DetailsView(object: MusicStoreItem(id: "", name: "Test", artistName: "Test", artworkURL: "", type: .playlist),storeVM: StoreVM(musicManager: MusicManager(username: "Test", settingsManager: SettingsManager(username: "Test")), token: "", storeFront: ""))
+            DetailsView(object: MusicStoreItem(id: "", name: "Test", artistName: "Test", artworkURL: "", isExplicit: false, type: .playlist),storeVM: StoreVM(musicManager: MusicManager(username: "Test", settingsManager: SettingsManager(username: "Test")), token: "", storeFront: ""))
         }
     }
 }

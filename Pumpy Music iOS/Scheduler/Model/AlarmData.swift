@@ -7,17 +7,18 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseFirestore
 import CodableFirebase
+import PumpyLibrary
 
-class AlarmData: NSObject, ObservableObject {
+public class AlarmData: NSObject, ObservableObject {
     
     let username: String
     let db = Firestore.firestore()
     var alarmListener: ListenerRegistration?
-    @Published var alarmArray = [Alarm]()
+    @Published public var alarmArray = [Alarm]()
     
-    init(username: String) {
+    public init(username: String) {
         self.username = username
         super.init()
         addDefaultsObservers()
@@ -37,7 +38,7 @@ class AlarmData: NSObject, ObservableObject {
         self.alarmArray = AlarmData.loadAlarms()
     }
     
-    static func loadAlarms() -> [Alarm] {
+    public static func loadAlarms() -> [Alarm] {
         guard let alarms = UserDefaults.standard.object(forKey: K.alarmsKey) as? Data else { return [] }
 
         guard let alarmArray = (try? PropertyListDecoder().decode([Alarm].self, from: alarms)) else {
@@ -69,7 +70,6 @@ class AlarmData: NSObject, ObservableObject {
         do {
             let alarms = try PropertyListEncoder().encode(alarmArray)
             UserDefaults.standard.set(alarms, forKey: K.alarmsKey)
-            print("Successfully Saved Alarms Offline")
         } catch {
             print("Save data error.")
         }
@@ -82,12 +82,12 @@ class AlarmData: NSObject, ObservableObject {
                                           context: nil)
     }
     
-    func removeObservers() {
+    public func removeObservers() {
         alarmListener?.remove()
         UserDefaults.standard.removeObserver(self, forKeyPath: K.alarmsKey)
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == K.alarmsKey {
             loadData()
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()

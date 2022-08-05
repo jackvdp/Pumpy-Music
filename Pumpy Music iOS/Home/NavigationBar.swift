@@ -13,6 +13,7 @@ struct NavigationBar: View {
     @EnvironmentObject var nowPlayingManager: NowPlayingManager
     @EnvironmentObject var blockedTracksManager: BlockedTracksManager
     @State private var showChart = false
+    @EnvironmentObject var homeVM: HomeVM
         
     var body: some View {
         HStack {
@@ -26,11 +27,27 @@ struct NavigationBar: View {
                     self.showChart = true
                 }
             Spacer()
-            MenuButton()
+            menuButton
         }
         .sheet(isPresented: $showChart) {
             AnalyticsView()
                 .environmentObject(nowPlayingManager)
+        }
+    }
+    
+    var menuButton: some View {
+
+        NavigationLink(destination: MenuView(), isActive: $homeVM.showMenu) {
+            Button(action: {
+                homeVM.showMenu.toggle()
+            }) {
+                Image(systemName: "line.horizontal.3")
+                    .resizable()
+                    .foregroundColor(Color.white)
+                    .frame(width: 25, height: 25, alignment: .center)
+                    .aspectRatio(contentMode: .fit)
+                    .font(Font.title.weight(.ultraLight))
+            }
         }
     }
     

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import PumpyLibrary
 
 struct ExtDisplaySettingsView: View {
     

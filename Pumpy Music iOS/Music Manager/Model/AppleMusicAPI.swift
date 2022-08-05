@@ -11,6 +11,7 @@ import StoreKit
 import SwiftyJSON
 import HummingKit
 import MediaPlayer
+import PumpyLibrary
 
 class AppleMusicAPI {
     
@@ -33,6 +34,7 @@ class AppleMusicAPI {
                     name: name,
                     artistName: String(),
                     artworkURL: artwork,
+                    isExplicit: false,
                     type: msKind)
                 
                 switch msKind {

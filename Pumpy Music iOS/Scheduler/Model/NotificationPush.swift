@@ -8,6 +8,7 @@
 
 import Foundation
 import UserNotifications
+import PumpyLibrary
 
 enum NotificationCategory: String {
     case AlarmNotification

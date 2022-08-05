@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import PumpyLibrary
 
 extension ScheduleView {
     
@@ -53,9 +54,14 @@ extension ScheduleView {
 #if DEBUG
 struct FilterButtonView_Previews: PreviewProvider {
     
+    struct TestUser: ScheduledUser {
+        var username: String = "Test"
+        var alarmData = AlarmData(username: "Test")
+    }
+    
     static var previews: some View {
         return NavigationView {
-            ScheduleView(scheduleViewModel: ScheduleViewModel(user: User(username: "Test")))
+            ScheduleView(user: TestUser(), getPlists: {return []})
         }.accentColor(.pumpyPink)
     }
 }

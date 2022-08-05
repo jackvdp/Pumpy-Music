@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import PumpyLibrary
 
 struct ActiveModel: Codable {
     var deviceName = UIDevice.current.name

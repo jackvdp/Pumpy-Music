@@ -7,34 +7,61 @@
 //
 
 import Foundation
+import PumpyLibrary
 
-struct Alarm: Codable, Equatable {
-    var uuid: String
-    var time: Time
-    var playlistLabel: String
-    var repeatStatus: [DetailInfo.DaysOfWeek]
-    var secondaryPlaylists: [SecondaryPlaylist]?
+public struct Alarm: Codable, Equatable {
+    public init(uuid: String, time: Time, playlistLabel: String, repeatStatus: [DetailInfo.DaysOfWeek], secondaryPlaylists: [SecondaryPlaylist]? = nil, externalSettingsOverride: Bool? = nil, showQRCode: Bool? = nil, QRLink: String? = nil, QRMessage: String? = nil, contentType: ExtDisContentType? = nil, messageSpeed: Double? = nil, qrType: QRType? = nil) {
+        self.uuid = uuid
+        self.time = time
+        self.playlistLabel = playlistLabel
+        self.repeatStatus = repeatStatus
+        self.secondaryPlaylists = secondaryPlaylists
+        self.externalSettingsOverride = externalSettingsOverride
+        self.showQRCode = showQRCode
+        self.QRLink = QRLink
+        self.QRMessage = QRMessage
+        self.contentType = contentType
+        self.messageSpeed = messageSpeed
+        self.qrType = qrType
+    }
     
-    var externalSettingsOverride: Bool?
-    var showQRCode: Bool?
-    var QRLink: String?
-    var QRMessage: String?
-    var contentType: ExtDisContentType?
-    var messageSpeed: Double?
-    var qrType: QRType?
+    public var uuid: String
+    public var time: Time
+    public var playlistLabel: String
+    public var repeatStatus: [DetailInfo.DaysOfWeek]
+    public var secondaryPlaylists: [SecondaryPlaylist]?
+
+    public var externalSettingsOverride: Bool?
+    public var showQRCode: Bool?
+    public var QRLink: String?
+    public var QRMessage: String?
+    public var contentType: ExtDisContentType?
+    public var messageSpeed: Double?
+    public var qrType: QRType?
 }
 
-struct SecondaryPlaylist: Codable, Equatable, Hashable, Identifiable {
-    var name: String
-    var ratio: Int
-    var id = UUID()
+public struct SecondaryPlaylist: Codable, Equatable, Hashable, Identifiable {
+    public init(name: String, ratio: Int, id: UUID = UUID()) {
+        self.name = name
+        self.ratio = ratio
+        self.id = id
+    }
+    
+    public var name: String
+    public var ratio: Int
+    public var id = UUID()
 }
 
-struct Time: Codable, Equatable {
-    var hour: Int
-    var min: Int
+public struct Time: Codable, Equatable {
+    public init(hour: Int, min: Int) {
+        self.hour = hour
+        self.min = min
+    }
+
+    public var hour: Int
+    public var min: Int
     
-    var timeString: String {
+    public var timeString: String {
         let formatter = DateFormatter.dateFormat(fromTemplate: "HH:mm", options: 0, locale: .current)
         let dateFormatter = DateFormatter()
         
@@ -47,11 +74,11 @@ struct Time: Codable, Equatable {
         return dateFormatter.string(from: date)
     }
     
-    var date: Date {
+    public var date: Date {
         dateComponents.date!
     }
 
-    var dateComponents: DateComponents {
+    public var dateComponents: DateComponents {
         DateComponents(calendar: Calendar.current, hour: hour, minute: min, second: 0)
     }
     
@@ -62,6 +89,6 @@ extension DetailInfo.DaysOfWeek: Codable {
 }
 
 extension Date {
-    var hour: Int { Calendar.current.component(.hour, from: self) }
-    var minute: Int { Calendar.current.component(.minute, from: self) }
+    public var hour: Int { Calendar.current.component(.hour, from: self) }
+    public var minute: Int { Calendar.current.component(.minute, from: self) }
 }

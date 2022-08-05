@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import PumpyLibrary
 
 struct ArtworkView: View {
     
@@ -36,7 +37,6 @@ struct ArtworkView: View {
                 }
             }
         }
-        .animation(.easeInOut(duration: 1))
         .onReceive(musicManager.nowPlayingManager.$currentArtwork) { image in
             withAnimation {
                 if imageSelection == .imageA {
@@ -77,9 +77,15 @@ extension ArtworkView {
         let defaultArtwork = UIImage(imageLiteralResourceName: K.defaultArtwork)
         
         var body: some View {
-            Image(uiImage: artwork ?? defaultArtwork)
-                .resizable()
-                .aspectRatio(1, contentMode: .fit)
+            if let artwork = artwork {
+                Image(uiImage: artwork)
+                    .resizable()
+                    .aspectRatio(1, contentMode: .fit)
+            } else {
+                Image(uiImage: defaultArtwork)
+                    .resizable()
+                    .aspectRatio(1, contentMode: .fit)
+            }
         }
     }
 

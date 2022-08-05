@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import PumpyLibrary
 
 extension SetScheduleView {
     struct SelectPlaylistView: View {
@@ -110,9 +111,15 @@ extension SetScheduleView {
 
 #if DEBUG
 struct SelectPlaylistView_Previews: PreviewProvider {
+    
+    struct TestUser: ScheduledUser {
+        var username: String = "Test"
+        var alarmData = AlarmData(username: "Test")
+    }
+    
     static var previews: some View {
         SetScheduleView.SelectPlaylistView()
-            .environmentObject(ScheduleViewModel(user: User(username: "Test")))
+            .environmentObject(ScheduleViewModel(user: TestUser(), getPlists: {return []}))
     }
 }
 #endif

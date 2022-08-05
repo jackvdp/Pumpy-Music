@@ -12,6 +12,7 @@ import UserNotifications
 import Firebase
 import BackgroundTasks
 import Siren
+import PumpyLibrary
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {

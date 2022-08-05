@@ -8,11 +8,11 @@
 
 import Foundation
 
-enum DetailInfo {
+public enum DetailInfo {
     
     static let repeatArray: [String] = DaysOfWeek.allCases.map { $0.rawValue }
 
-    enum DaysOfWeek: String, CaseIterable, Equatable {
+    public enum DaysOfWeek: String, CaseIterable, Equatable {
         case Sunday, Monday, Tuesday, Wednesday, Thusday, Friday, Saturday
         var index: Int { DaysOfWeek.allCases.firstIndex(of: self)! }
     }
@@ -30,7 +30,7 @@ enum DetailInfo {
         }
     }
     
-    static func getCurrentDayFormatted() -> DetailInfo.DaysOfWeek {
+    public static func getCurrentDayFormatted() -> DetailInfo.DaysOfWeek {
         
         let dayString = Calendar.current.component(.weekday, from: Date())
         

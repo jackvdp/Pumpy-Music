@@ -8,6 +8,7 @@
 
 import SwiftUI
 import ActivityIndicatorView
+import PumpyLibrary
 
 struct BlockedTracksRowView: View {
     
@@ -22,19 +23,29 @@ struct BlockedTracksRowView: View {
                 .frame(width: 50, height: 50)
                 .cornerRadius(10)
             VStack(alignment: .leading, spacing: 5.0) {
-                Text(blockedTrackVM.trackTitle)
-                    .font(.headline)
-                    .lineLimit(1)
-                    .foregroundColor(.white)
+                HStack(alignment: .center, spacing: 10.0) {
+                    Text(blockedTrackVM.trackTitle ?? "Loading...")
+                        .font(.headline)
+                        .lineLimit(1)
+                        .foregroundColor(.white)
+                    if blockedTrackVM.isExplicit {
+                        Image(systemName: "e.square")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 12, height: 12, alignment: .center)
+                    }
+                }
                 Text(blockedTrackVM.trackArtist)
                     .font(.subheadline)
                     .lineLimit(1)
                     .foregroundColor(.white)
             }
             Spacer()
-            ActivityIndicatorView(isVisible: $blockedTrackVM.loadingSpinnerOn, type: .arcs)
-                .frame(width: 20, height: 20)
-                .foregroundColor(Color(UIColor(named: K.pumpyPink)!))
+            if blockedTrackVM.trackTitle == nil {
+                ActivityIndicatorView(isVisible: $blockedTrackVM.loadingSpinnerOn, type: .arcs)
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(Color(UIColor(named: K.pumpyPink)!))
+            }
         }
         .padding(.all, 5.0)
     }
@@ -42,6 +53,16 @@ struct BlockedTracksRowView: View {
 
 struct BlockedTracksRowView_Previews: PreviewProvider {
     static var previews: some View {
-        BlockedTracksRowView(blockedTrackVM: BlockedTrackViewModel(id: "", token: "", storeFront: ""))
+        BlockedTracksRowView(blockedTrackVM: BlockedTrackViewModel(BlockedTrack(isExplicit: false, playbackID: ""), token: "", storeFront: ""))
+        BlockedTracksRowView(
+            blockedTrackVM:
+                BlockedTrackViewModel(
+                    BlockedTrack(title: "Test",
+                                 artist: "Test",
+                                 isExplicit: true,
+                                 playbackID: "n4fjrhfn"),
+                    token: "",
+                    storeFront: "")
+        )
     }
 }

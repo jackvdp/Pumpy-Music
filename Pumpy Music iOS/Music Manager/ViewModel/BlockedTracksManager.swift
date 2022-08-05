@@ -11,10 +11,11 @@ import Firebase
 import CodableFirebase
 import MediaPlayer
 import SwiftUI
+import PumpyLibrary
 
 class BlockedTracksManager: ObservableObject {
     
-    @Published var blockedTracks = [String]() {
+    @Published var blockedTracks = [BlockedTrack]() {
         didSet {
             saveBlockedTracks(blockedTracks: blockedTracks)
         }
@@ -35,34 +36,37 @@ class BlockedTracksManager: ObservableObject {
     }
     
     func listenForBlockedTracks() {
-        remoteListener = FireMethods.listen(db: db, name: username, documentName: K.FStore.blockedTracks, dataFieldName: K.FStore.blockedTracks, decodeObject: [String].self) { blocked in
+        remoteListener = FireMethods.listen(db: db, name: username,
+                                            documentName: K.FStore.blockedTracks,
+                                            dataFieldName: K.FStore.blockedTracks,
+                                            decodeObject: [BlockedTrack].self) { blocked in
             self.blockedTracks = blocked
         }
     }
     
-    func saveBlockedTracks(blockedTracks: [String]) {
+    func saveBlockedTracks(blockedTracks: [BlockedTrack]) {
         FireMethods.save(object: blockedTracks,
                          name: username,
                          documentName: K.FStore.blockedTracks,
                          dataFieldName: K.FStore.blockedTracks)
     }
     
-    func unblockTrackOrAskToBlock(id: String) -> Bool {
-        if blockedTracks.contains(id) {
-            removeTrack(id: id)
+    func unblockTrackOrAskToBlock(track: BlockedTrack) -> Bool {
+        if blockedTracks.contains(where: { $0.playbackID == track.playbackID }) {
+            removeTrack(id: track.playbackID)
         } else {
             return true
         }
         return false
     }
     
-    func addTrackToBlockedList(id: String) {
-        blockedTracks.append(id)
-        queueManager.removeFromQueue(id: id)
+    func addTrackToBlockedList(_ track: BlockedTrack) {
+        blockedTracks.append(track)
+        queueManager.removeFromQueue(id: track.playbackID)
     }
     
     func removeTrack(id: String) {
-        blockedTracks.removeAll(where: { $0 == id })
+        blockedTracks.removeAll(where: { $0.playbackID == id })
     }
     
     func removeListener() {

@@ -8,6 +8,7 @@
 
 import SwiftUI
 import ActivityIndicatorView
+import PumpyLibrary
 
 struct LoginView: View {
     
@@ -15,6 +16,7 @@ struct LoginView: View {
     let usernamePlaceholder: String
     let buttonText: String
     let pageSwitchText: String
+    @Namespace var background
     
     var body: some View {
         ZStack {
@@ -36,7 +38,10 @@ struct LoginView: View {
             .padding(.all, 10.0)
             ActivityView(activityIndicatorVisible: $accountVM.activityIndicatorVisible)
         }
-        .background(BackgroundView())
+        .background(
+            BackgroundView()
+                .id(background)
+        )
         .alert(isPresented: $accountVM.showingAlert) {
             Alert(title: Text("Error"),
                   message: Text(accountVM.errorAlert),
@@ -73,16 +78,22 @@ struct BackgroundView: View {
 }
 
 struct PumpyView: View {
+    @Environment(\.horizontalSizeClass) var hSize
+    @Environment(\.verticalSizeClass) var vSize
+    
     var body: some View {
         Image(K.pumpyImage)
             .resizable()
             .aspectRatio(contentMode: .fit)
+            .frame(maxWidth: hSize == .regular || vSize == .regular ? 400 : nil)
     }
 }
 
 struct TextFieldView: View {
     @Binding var string: String
     let placeholder: String
+    @Environment(\.horizontalSizeClass) var hSize
+    @Environment(\.verticalSizeClass) var vSize
     
     var body: some View {
         TextField(placeholder, text: $string)
@@ -91,20 +102,24 @@ struct TextFieldView: View {
             .colorScheme(.light)
             .accentColor(.pumpyPink)
             .padding(.all, 10)
+            .frame(maxWidth: hSize == .regular || vSize == .regular ? 400 : nil)
     }
 }
 
 struct SecureTextFieldView: View {
     @Binding var string: String
     let placeholder: String
+    @Environment(\.horizontalSizeClass) var hSize
+    @Environment(\.verticalSizeClass) var vSize
     
     var body: some View {
         SecureField(placeholder, text: $string)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .textFieldStyle(.roundedBorder)
             .colorScheme(.light)
             .accentColor(.pumpyPink)
             .padding(.horizontal, 10)
             .padding(.bottom, 50)
+            .frame(maxWidth: hSize == .regular || vSize == .regular ? 400 : nil)
     }
 }
 

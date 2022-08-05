@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import PumpyLibrary
 
 struct ScheduleRow: View {
     
@@ -30,6 +31,12 @@ struct ScheduleRow_Previews: PreviewProvider {
         ScheduleRow(alarm: Alarm(uuid: "",
                                  time: Time(hour: 10, min: 30),
                                  playlistLabel: "A Bit of Lunch",
-                                 repeatStatus: [.Tuesday, .Wednesday, .Thusday, .Friday, .Saturday,. Sunday]))
+                                 repeatStatus: [
+                                    .Tuesday,
+                                    .Wednesday,
+                                        .Thusday,
+                                        .Friday,
+                                        .Saturday,
+                                    . Sunday]))
     }
 }

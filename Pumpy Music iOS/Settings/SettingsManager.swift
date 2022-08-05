@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import CodableFirebase
+import PumpyLibrary
 
 class SettingsManager: ObservableObject {
     

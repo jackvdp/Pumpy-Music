@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import PumpyLibrary
 
 struct BlockedTracksView: View {
     
@@ -24,7 +25,7 @@ struct BlockedTracksView: View {
             } else {
                 List {
                     ForEach(blockedTracksManager.blockedTracks, id: \.self) { track in
-                        BlockedTracksRowView(blockedTrackVM: BlockedTrackViewModel(id: track,
+                        BlockedTracksRowView(blockedTrackVM: BlockedTrackViewModel(track,
                                                                                    token: token,
                                                                                    storeFront: storeFront))
                     }
@@ -47,7 +48,7 @@ struct BlockedTracksView: View {
     func delete(at offsets: IndexSet) {
         offsets.forEach { i in
             if let item = blockedTracksManager.blockedTracks[safe: i] {
-                blockedTracksManager.removeTrack(id: item)
+                blockedTracksManager.removeTrack(id: item.playbackID)
             }
         }
     }

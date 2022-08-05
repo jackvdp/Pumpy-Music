@@ -10,6 +10,8 @@ import Foundation
 import Firebase
 import CodableFirebase
 import MediaPlayer
+import Scheduler
+import PumpyLibrary
 
 class RemoteManager: ObservableObject {
     

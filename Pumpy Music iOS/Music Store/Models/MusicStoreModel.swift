@@ -13,6 +13,7 @@ struct MusicStoreItem: Hashable {
     var name: String
     var artistName: String
     var artworkURL: String
+    var isExplicit: Bool
     var type: MusicStoreType
     
     var collectiveString: String {

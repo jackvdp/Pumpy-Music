@@ -21,7 +21,7 @@ struct PlaylistRow : View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 75, height: 75)
                 .cornerRadius(10)
-            Text(playlist.item.name ?? "")
+            Text(playlist.name ?? "")
                 .font(.headline)
         }
         .padding(.all, 10.0)

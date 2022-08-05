@@ -8,7 +8,6 @@
 
 import Foundation
 import MediaPlayer
-import SwiftUI
 
 class Artwork {
     
@@ -43,7 +42,7 @@ class Artwork {
                         }
                     }
                 }
-            }            
+            }
         }
     }
     

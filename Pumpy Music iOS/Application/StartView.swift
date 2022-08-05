@@ -27,7 +27,7 @@ struct StartView: View {
                           pageSwitchText: "Already have an account?")
             }
         }
-        .animation(.easeIn(duration: 0.5))
+//        .animation(.default)
     }
 }
 
@@ -52,13 +52,9 @@ private struct UserView: View {
             .environmentObject(user.musicManager.blockedTracksManager)
             .environmentObject(user.settingsManager)
             .environmentObject(user.externalDisplayManager)
-//            .environmentObject(user.repeatManager)
             .environmentObject(user.alarmData)
             .environmentObject(user.musicManager.tokenManager)
             .environmentObject(user.musicManager.queueManager)
-            .environment(\.musicStoreKey, user.musicManager.tokenManager.appleMusicToken)
-            .environment(\.musicStoreFrontKey, user.musicManager.tokenManager.appleMusicStoreFront)
-//            .environment(\.settingsKey, user.settingsManager.settings)
     }
     
 }

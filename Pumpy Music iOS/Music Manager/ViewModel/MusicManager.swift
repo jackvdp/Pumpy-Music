@@ -29,7 +29,7 @@ class MusicManager: ObservableObject {
         crossfadeManager = CrossfadeManager(settingsManager: settingsManager)
         queueManager = QueueManager(name: username)
         blockedTracksManager = BlockedTracksManager(username: username, queueManager: queueManager)
-        playlistManager = PlaylistManager(blockedTracksManager: blockedTracksManager, settingsManager: settingsManager)
+        playlistManager = PlaylistManager(blockedTracksManager: blockedTracksManager, settingsManager: settingsManager, tokenManager: tokenManager)
         setUpNotifications()
     }
     

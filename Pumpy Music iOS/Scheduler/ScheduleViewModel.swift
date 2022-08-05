@@ -7,15 +7,17 @@
 //
 
 import SwiftUI
-import Firebase
-import CodableFirebase
+import PumpyLibrary
+import FirebaseFirestore
 
 class ScheduleViewModel: ObservableObject {
     
-    var user: User
+    var user: ScheduledUser
+    var getPlaylists: () -> [ScheduledPlaylist]
     
-    init(user: User) {
+    init(user: ScheduledUser, getPlists: @escaping () -> [ScheduledPlaylist]) {
         self.user = user
+        self.getPlaylists = getPlists
         loadData()
         loadPlaylists()
     }
@@ -65,19 +67,19 @@ class ScheduleViewModel: ObservableObject {
     }
     
     func loadPlaylists() {
-        let playlistsMM = MusicContent.getPlaylists()
+        let playlistsMM = getPlaylists()
         if !playlistsMM.isEmpty {
             for playlist in playlistsMM {
-                playlists.append(playlist.item.name ?? "")
+                playlists.append(playlist.name ?? "")
             }
             playlists.append(K.stopMusic)
         }
     }
     
     func createNewSecondaryPlaylist() {
-        let playlistsMM = MusicContent.getPlaylists()
+        let playlistsMM = getPlaylists()
         if let playlist = playlistsMM.first {
-            secondaryPlaylists.append(SecondaryPlaylist(name: playlist.item.name ?? "", ratio: 2))
+            secondaryPlaylists.append(SecondaryPlaylist(name: playlist.name ?? "", ratio: 2))
         }
     }
     

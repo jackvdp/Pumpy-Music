@@ -9,6 +9,7 @@
 import Foundation
 import MediaPlayer
 import AVFoundation
+import Scheduler
 
 class MusicCoreFunctions {
     
@@ -72,7 +73,6 @@ class MusicCoreFunctions {
     }
     
     static func getMostRecentPlaylist(alarms: [Alarm]) -> Alarm? {
-        print("Getting last playlist")
         let tempCheckAlarms = alarms
         var tempCheckedAlarms: [Alarm] = []
         let currentHour = Calendar.current.component(.hour, from: Date())

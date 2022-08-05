@@ -15,52 +15,77 @@ struct HomeView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     @Namespace var controls
     @Namespace var labels
+    @Namespace var background
     
     var body: some View {
-        ZStack() {
-            ArtworkView(contentType: .background)
-            VStack(spacing: 5) {
-                NavigationBar()
-                Spacer()
-                //portrait
-                if horizontalSizeClass == .compact && verticalSizeClass == .regular  {
-                    switch homeVM.pageType {
-                    case .artwork:
-                        ArtworkView(contentType: .artwork)
-                    case .upNext:
-                        UpNextView()
-                            .padding(.horizontal, -20)
-                    }
-                    Spacer()
-                    SongLabels().id(labels)
-                    Spacer()
-                    PlayerControls().id(controls)
-                    Spacer()
-                    VolumeControl()
-                //landscape
-                } else  {
-                    HStack(spacing: 5) {
-                        VStack(spacing: 5) {
-                            Spacer()
-                            ArtworkView(contentType: .artwork)
-                            Spacer()
-                            SongLabels().id(labels)
-                            Spacer()
-                            PlayerControls().id(controls)
-                            Spacer()
-                            VolumeControl()
-                        }
-                        VStack {
-                            UpNextView()
-                        }
-                    }
-                }
-            }
-            .animation(.easeIn(duration: 0.5))
-            .padding([.horizontal, .bottom], 20)
-            .padding(.top, 10)
+        NavigationView {
+            playerView
+                .navigationBarHidden(true)
+                .navigationBarTitle("Player")
         }
+        .accentColor(.pumpyPink)
         .environmentObject(homeVM)
+        .navigationViewStyle(.stack)
+    }
+    
+    var playerView: some View {
+        VStack {
+            NavigationBar()
+            if isPortrait() {
+                portraitView
+            } else  {
+                landscapeView
+            }
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 10)
+        .background(
+            ArtworkView(contentType: .background)
+                .transaction { t in
+                                    t.animation = .none
+                                }
+        )
+    }
+    
+    var portraitView: some View {
+        VStack {
+            Spacer()
+            switch homeVM.pageType {
+            case .artwork:
+                ArtworkView(contentType: .artwork)
+            case .upNext:
+                UpNextView()
+                    .padding(.horizontal, -20)
+            }
+            Spacer(minLength: 20)
+            SongLabels().id(labels)
+            Spacer(minLength: 20)
+            PlayerControls().id(controls)
+            Spacer(minLength: 20)
+            VolumeControl()
+        }
+    }
+    
+    var landscapeView: some View {
+        HStack(spacing: 5) {
+            VStack {
+                Spacer()
+                ArtworkView(contentType: .artwork)
+                Spacer(minLength: 20)
+                SongLabels().id(labels)
+                Spacer(minLength: 20)
+                PlayerControls().id(controls)
+                Spacer(minLength: 20)
+                VolumeControl()
+            }
+            VStack {
+                UpNextView()
+            }
+        }
+    }
+    
+    func isPortrait() -> Bool {
+        horizontalSizeClass == .compact && verticalSizeClass == .regular
     }
     
 }
@@ -68,28 +93,32 @@ struct HomeView: View {
 #if DEBUG
 struct HomeView_Previews: PreviewProvider {
     
-    static let user = User(username: "Test")
+    static var user: User {
+        let u = User(username: "Test")
+        u.musicManager.nowPlayingManager.currentTrack = Track(title: "Test", artist: "Test", playbackID: "11", isExplicit: true)
+        u.musicManager.playlistManager.playlistLabel = "Test Playlist"
+        return u
+    }
     static let homeVM = HomeVM()
+    static var homeVM2: HomeVM {
+        let h = HomeVM()
+        h.showMenu = true
+        return h
+    }
     
     static var previews: some View {
-        user.musicManager.nowPlayingManager.currentTrack = Track(title: "Test", artist: "Test", playbackID: "11", isExplicit: true)
-        user.musicManager.playlistManager.playlistLabel = "Test Playlist"
-        homeVM.pageType = .upNext
-        return HomeView(homeVM: homeVM)
+        HomeView(homeVM: homeVM)
+            .environmentObject(user)
             .environmentObject(user.musicManager)
             .environmentObject(user.musicManager.nowPlayingManager)
             .environmentObject(user.musicManager.playlistManager)
             .environmentObject(user.musicManager.blockedTracksManager)
             .environmentObject(user.settingsManager)
             .environmentObject(user.externalDisplayManager)
-//            .environmentObject(user.repeatManager)
             .environmentObject(user.alarmData)
             .environmentObject(user.musicManager.tokenManager)
             .environmentObject(user.musicManager.queueManager)
-            .environment(\.musicStoreKey, user.musicManager.tokenManager.appleMusicToken)
-            .environment(\.musicStoreFrontKey, user.musicManager.tokenManager.appleMusicStoreFront)
-//            .environment(\.settingsKey, user.settingsManager.settings)
+        
     }
 }
 #endif
-

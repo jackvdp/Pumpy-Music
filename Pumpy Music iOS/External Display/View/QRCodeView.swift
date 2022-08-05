@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Marquee
+import PumpyLibrary
 
 struct QRCodeView: View {
     

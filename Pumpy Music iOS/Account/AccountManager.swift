@@ -11,6 +11,7 @@ import Firebase
 import StoreKit
 import MediaPlayer
 import SwiftyJSON
+import PumpyLibrary
 
 class AccountManager: ObservableObject {
     

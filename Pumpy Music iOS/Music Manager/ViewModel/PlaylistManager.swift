@@ -9,23 +9,27 @@
 import Foundation
 import MediaPlayer
 import SwiftUI
+import Scheduler
+import PumpyLibrary
 
 class PlaylistManager: ObservableObject {
     
     let musicPlayerController = MPMusicPlayerController.applicationQueuePlayer
     @Published var playlistLabel = String()
     @Published var playlistURL = String()
-    @Environment(\.musicStoreKey) var appleMusicToken
-    @Environment(\.musicStoreFrontKey) var appleMusicStoreFront
     var timer: Timer?
     var backgroundPlaylistTimer: Timer?
     let blockedTracksManager: BlockedTracksManager
     let settingsManager: SettingsManager
+    let tokenManager: TokenManager
     var crossfader: Crossfade?
     
-    init(blockedTracksManager: BlockedTracksManager, settingsManager: SettingsManager) {
+    init(blockedTracksManager: BlockedTracksManager,
+         settingsManager: SettingsManager,
+         tokenManager: TokenManager) {
         self.blockedTracksManager = blockedTracksManager
         self.settingsManager = settingsManager
+        self.tokenManager = tokenManager
         setUpBGTimer()
     }
     
@@ -88,7 +92,8 @@ class PlaylistManager: ObservableObject {
         query.addFilterPredicate(filter)
         guard var items = query.items else { return [] }
         items.removeAll(where: { item in
-            blockedTracksManager.blockedTracks.contains(item.playbackStoreID)
+            blockedTracksManager.blockedTracks
+                .contains(where: { $0.playbackID == item.playbackStoreID})
         })
         items = checkExplicit(items: items)
         return items.shuffled().removingDuplicates()
@@ -136,7 +141,7 @@ class PlaylistManager: ObservableObject {
     }
     
     private func getPlaylistURL(_ playlist: String) {
-        if let token = appleMusicToken, let store = appleMusicStoreFront {
+        if let token = tokenManager.appleMusicToken, let store = tokenManager.appleMusicStoreFront {
             let amAPI = AppleMusicAPI(token: token, storeFront: store)
             amAPI.getPlaylistURL(playlist: playlist) { urlString in
                 DispatchQueue.main.async {

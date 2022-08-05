@@ -12,7 +12,6 @@ import MediaPlayer
 class MusicContent {
     
     static func getPlaylists() -> [Playlist] {
-
         if let playlistsAndFolders = MPMediaQuery.playlists().collections {
             let playlists = playlistsAndFolders.filter { !($0.value(forProperty: "isFolder") as? Bool ?? false) }
             if let plists = playlists as? [MPMediaPlaylist] {

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import PumpyLibrary
 
 class BlockedTrackViewModel: ObservableObject {
     
@@ -15,15 +16,19 @@ class BlockedTrackViewModel: ObservableObject {
     let storeFront: String
     let defaultArtwork = UIImage(imageLiteralResourceName: K.defaultArtwork)
     
-    init(id: String, token: String, storeFront: String) {
-        self.id = id
+    init(_ blockedTrack: BlockedTrack, token: String, storeFront: String) {
+        self.id = blockedTrack.playbackID
         self.token = token
         self.storeFront = storeFront
+        self.trackTitle = blockedTrack.title
+        self.trackArtist = blockedTrack.artist ?? String()
+        self.isExplicit = blockedTrack.isExplicit ?? false
         loadTrackData()
     }
     
-    @Published var trackTitle = "Loading..."
-    @Published var trackArtist = String()
+    @Published var trackTitle: String?
+    @Published var trackArtist: String
+    @Published var isExplicit: Bool
     @Published var artwork = UIImage(imageLiteralResourceName: K.defaultArtwork)
     @Published var loadingSpinnerOn = true
     
@@ -37,7 +42,6 @@ class BlockedTrackViewModel: ObservableObject {
                     self.loadingSpinnerOn = false
                 }
                 self.loadArtwork(i.artworkURL)
-                
             }
         }
     }

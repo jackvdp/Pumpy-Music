@@ -21,7 +21,7 @@ struct DislikeButton: View {
     
     var body: some View {
         Button(action: {
-            if blockedTracksManager.unblockTrackOrAskToBlock(id: track.playbackID) {
+            if blockedTracksManager.unblockTrackOrAskToBlock(track: track.getBlockedTrack()) {
                 showAlert = true
             }
         }) {
@@ -32,7 +32,6 @@ struct DislikeButton: View {
                 .foregroundColor(colour)
                 .font(Font.title.weight(.thin))
                 .rotationEffect(.degrees(rotation))
-                .animation(.easeIn)
         }
         .buttonStyle(PlainButtonStyle())
         .alert(isPresented: $showAlert, content: createAlert)
@@ -46,7 +45,8 @@ struct DislikeButton: View {
     
     func setButton() {
         withAnimation {
-            if blockedTracksManager.blockedTracks.contains(track.playbackID) {
+            if blockedTracksManager.blockedTracks
+                .contains(where: { $0.playbackID == track.playbackID}) {
                 rotation = 180
                 colour = .red
             } else {
@@ -62,7 +62,7 @@ struct DislikeButton: View {
                      primaryButton: .default(Text("Cancel"), action: {}),
                      secondaryButton: .destructive(Text("Block"),
                                                    action: {
-            blockedTracksManager.addTrackToBlockedList(id: track.playbackID)
+            blockedTracksManager.addTrackToBlockedList(track.getBlockedTrack())
         }))
     }
 

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import PumpyLibrary
 
 struct SetScheduleView: View {
     
@@ -37,7 +38,7 @@ struct SetScheduleView: View {
                                      })
                             }
                             ) {
-                    ForEach($schVM.secondaryPlaylists) { i, playlist in
+                    ForEach($schVM.secondaryPlaylists) { playlist in
                         Section {
                             VStack {
                                 SelectSecondaryPlaylistView(secondaryPlaylist: playlist)
@@ -98,8 +99,12 @@ struct SetScheduleView: View {
 
 #if DEBUG
 struct SetScheduleView_Previews: PreviewProvider {
-
-    static let schVM = ScheduleViewModel(user: User(username: "Test"))
+    struct TestUser: ScheduledUser {
+        var username: String = "Test"
+        var alarmData = AlarmData(username: "Test")
+    }
+    
+    static let schVM = ScheduleViewModel(user: TestUser(), getPlists: {return []})
     
     static var previews: some View {
         schVM.externalSettingsOverride = true
@@ -109,15 +114,3 @@ struct SetScheduleView_Previews: PreviewProvider {
     }
 }
 #endif
-
-struct FormViewRow: View {
-    let title: String
-    let subTitle: String
-    var body: some View {
-        HStack {
-            Text(title)
-            Spacer()
-            Text(subTitle).foregroundColor(.gray)
-        }
-    }
-}

@@ -10,6 +10,8 @@ import Foundation
 import UserNotifications
 import UIKit
 import Firebase
+import PumpyLibrary
+import Scheduler
 
 extension AppDelegate  {
 

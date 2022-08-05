@@ -9,8 +9,9 @@
 import Foundation
 import UserNotifications
 import Firebase
+import Scheduler
 
-class User: ObservableObject {
+class User: ObservableObject, ScheduledUser {
     
     let username: String
     let remoteDataManager: RemoteManager
@@ -22,10 +23,10 @@ class User: ObservableObject {
     init(username: String) {
         self.username = username
         settingsManager = SettingsManager(username: username)
-        musicManager = MusicManager(username: username, settingsManager: settingsManager) //
-        alarmData = AlarmData(username: username) //
-        remoteDataManager = RemoteManager(username: username, musicManager: musicManager, alarmManager: alarmData) //
-        externalDisplayManager = ExternalDisplayManager(username: username, musicManager: musicManager) //
+        musicManager = MusicManager(username: username, settingsManager: settingsManager)
+        alarmData = AlarmData(username: username)
+        remoteDataManager = RemoteManager(username: username, musicManager: musicManager, alarmManager: alarmData)
+        externalDisplayManager = ExternalDisplayManager(username: username, musicManager: musicManager)
         PlaybackData.savePlaylistsOnline(for: username)
         ActiveInfo.save(.loggedIn, for: username)
         subscribeToTopic()

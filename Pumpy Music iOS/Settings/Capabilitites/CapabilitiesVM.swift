@@ -10,6 +10,7 @@ import Foundation
 import UserNotifications
 import StoreKit
 import MediaPlayer
+import PumpyLibrary
 
 class CapabilitiesViewModel: ObservableObject {
     
