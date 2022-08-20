@@ -55,29 +55,6 @@ extension QueueManager {
     }
     
     private func createTracksFromQueue() -> [PumpyAnalytics.Track] {
-//        let player = ApplicationMusicPlayer.shared
-//        print(player.)
-//        print(player.queue.currentEntry)
-//        return player.queue.entries.compactMap {
-//            guard let song = $0.transientItem as? Song else {
-//                print("Not transiernt")
-//                return nil }
-//            guard let isrc = song.isrc else {
-//                print("No isrc")
-//                return nil
-//            }
-//            print(isrc)
-//            return PumpyAnalytics.Track(title: "",
-//                                        artist: "",
-//                                        album: "",
-//                                        isrc: isrc,
-//                                        artworkURL: nil,
-//                                        previewUrl: nil,
-//                                        isExplicit: false,
-//                                        sourceID: song.id.rawValue,
-//                                        authManager: authManager)
-//        }
-        MusicKit.
     }
     
     private func sortTracksByEnergy(tracks: [PumpyAnalytics.Track]) -> (mostEnergyIDs: [PumpyAnalytics.Track], leastEnergyIDs: [PumpyAnalytics.Track]) {
