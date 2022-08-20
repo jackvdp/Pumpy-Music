@@ -9,7 +9,7 @@
 import Foundation
 import MediaPlayer
 import AVFoundation
-import Scheduler
+import PumpyLibrary
 
 class MusicCoreFunctions {
     
@@ -72,34 +72,34 @@ class MusicCoreFunctions {
         }
     }
     
-    static func getMostRecentPlaylist(alarms: [Alarm]) -> Alarm? {
-        let tempCheckAlarms = alarms
-        var tempCheckedAlarms: [Alarm] = []
+    static func getNextPlaylist(alarms: [Alarm]) -> Alarm? {
+        let currentDay = DetailInfo.getCurrentDayFormatted()
+        let todaysAlarms = alarms.filter { $0.repeatStatus.isEmpty || $0.repeatStatus.contains(currentDay)}
+        
         let currentHour = Calendar.current.component(.hour, from: Date())
         let currentMinute = Calendar.current.component(.minute, from: Date())
         
-        //Check it's the right day and before the current hour.
-        for tempCheckAlarm in tempCheckAlarms {
-            if (tempCheckAlarm.repeatStatus == [] || tempCheckAlarm.repeatStatus.contains(DetailInfo.getCurrentDayFormatted())) && ((tempCheckAlarm.time.hour < currentHour && 6 <= tempCheckAlarm.time.hour) || (tempCheckAlarm.time.hour == currentHour && tempCheckAlarm.time.min < currentMinute)) {
-                tempCheckedAlarms.append(tempCheckAlarm)
-            }
+        var futureAlarms = todaysAlarms.filter { $0.time.hour >= currentHour }
+        futureAlarms.removeAll(where: { $0.time.hour == currentHour && $0.time.min <= currentMinute})
+        
+        return futureAlarms.first
+    }
+    
+    static func getMostRecentPlaylist(alarms: [Alarm]) -> Alarm? {
+        let currentDay = DetailInfo.getCurrentDayFormatted()
+        let todaysAlarms = alarms.filter { $0.repeatStatus.isEmpty || $0.repeatStatus.contains(currentDay)}
+        
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        let currentMinute = Calendar.current.component(.minute, from: Date())
+        
+        var pastAlarms = todaysAlarms.filter { $0.time.hour <= currentHour }
+        pastAlarms.removeAll(where: { $0.time.hour == currentHour && $0.time.min > currentMinute })
+        
+        if currentHour >= 6 {
+            pastAlarms.removeAll(where: { $0.time.hour < 6 })
         }
-        //Check nearest alarm time and then play
-        if !tempCheckedAlarms.isEmpty {
-            tempCheckedAlarms.sort {
-                if $0.time.date.hour < 6, $1.time.date.hour >= 6 { return false }
-                if $1.time.date.hour < 6, $0.time.date.hour >= 6 { return true }
-                return ($0.time.date.hour, $0.time.date.minute) < ($1.time.date.hour, $1.time.date.minute)
-            }
-            return tempCheckedAlarms.last
-        } else {
-            // return the first playlist
-            if !tempCheckAlarms.isEmpty {
-                return tempCheckAlarms[0]
-            } else {
-                return nil
-            }
-        }
+        
+        return pastAlarms.last != nil ? pastAlarms.last : getNextPlaylist(alarms: alarms)
     }
     
 }

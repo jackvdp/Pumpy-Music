@@ -8,15 +8,36 @@
 
 import Foundation
 import SwiftUI
+import PumpyLibrary
 
-class HomeVM: ObservableObject {
-    
+class HomeVM: HomeProtocol {
+
     @Published var pageType: PageType = .artwork
-    @Published var showMenu = false
+    @Published var showMenu = false {
+        didSet {
+            print("********** \(showMenu)")
+        }
+    }
+    let alarmData: AlarmData
+    let playlistManager: PlaylistManager
     
-    enum PageType {
-        case artwork
-        case upNext
+    init(alarmData: AlarmData, playlistManager: PlaylistManager) {
+        self.alarmData = alarmData
+        self.playlistManager = playlistManager
+    }
+    
+    func playPause() {
+        MusicCoreFunctions.togglePlayPause(alarms: alarmData.alarmArray,
+                                           playlistManager: playlistManager)
+    }
+    
+    func coldStart() {
+        MusicCoreFunctions.coldStart(alarms: alarmData.alarmArray,
+                                     playlistManager: playlistManager)
+    }
+    
+    func skipToNextItem() {
+        MusicCoreFunctions.skipToNextItem()
     }
     
 }

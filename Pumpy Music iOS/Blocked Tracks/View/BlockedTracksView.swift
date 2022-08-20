@@ -66,7 +66,7 @@ struct BlockedTracksView: View {
 struct BlockedTracksView_Previews: PreviewProvider {
     static var previews: some View {
         BlockedTracksView(token: "", storeFront: "")
-            .environmentObject(BlockedTracksManager(username: "Test", queueManager: QueueManager(name: "Test")))
+            .environmentObject(MockBlockedTracks())
     }
 }
 #endif

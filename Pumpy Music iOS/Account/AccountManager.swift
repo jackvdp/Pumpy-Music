@@ -8,15 +8,10 @@
 
 import Foundation
 import Firebase
-import StoreKit
-import MediaPlayer
-import SwiftyJSON
 import PumpyLibrary
 
-class AccountManager: ObservableObject {
-    
+class AccountManager: AccountManagerProtocol {
     static let shared = AccountManager()
-    
     @Published var pageState: SignType = .login
     @Published var usernameTF = String()
     @Published var passwordTF = String()
@@ -93,12 +88,8 @@ class AccountManager: ObservableObject {
     func signOut() {
         usernameTF = String()
         passwordTF = String()
+        user?.signOut()
         user = nil
-    }
-    
-    enum SignType {
-        case login
-        case register
     }
     
 }

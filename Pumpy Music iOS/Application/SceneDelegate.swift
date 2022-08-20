@@ -9,6 +9,7 @@
 import UIKit
 import SwiftUI
 import Combine
+import PumpyLibrary
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -42,14 +43,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func sceneWillEnterForeground(_ scene: UIScene) {
-        print("Scene entered the FG")
         if let username = accountManager.user?.username {
             ActiveInfo.save(.loggedIn, for: username)
         }
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
-        print("Scene entered the BG")
     }
     
     private var screenDidConnectPublisher: AnyPublisher<UIScreen, Never> {
@@ -75,7 +74,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .first { ($0 as? UIWindowScene)?.screen == screen }
             as? UIWindowScene
         
-        let view = ExternalDisplayView()
+        let view = ExternalDisplayView<
+            AccountManager,
+            PlaylistManager,
+            NowPlayingManager,
+            QueueManager,
+            BlockedTracksManager,
+            TokenManager
+        >()
             .environmentObject(accountManager)
         let controller = UIHostingController(rootView: view)
         window.rootViewController = controller

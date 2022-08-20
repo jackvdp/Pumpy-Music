@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Scheduler
 import PumpyLibrary
 
 struct MenuView: View {
@@ -40,12 +39,12 @@ struct MenuView: View {
     
     var music: some View {
         Section {
-            if settings.settings.showMusicLibrary {
+            if settings.onlineSettings.showMusicLibrary {
                 NavigationLink(destination: PlaylistTable()) {
                     MenuRow(title: "Music Library", imageName: "music.note.list")
                 }
             }
-            if settings.settings.showMusicStore {
+            if settings.onlineSettings.showMusicStore {
                 if let token = tokenManager.appleMusicToken, let sfID = tokenManager.appleMusicStoreFront {
                     NavigationLink(destination: MusicStoreView(storeVM: StoreVM(musicManager: musicManager, token: token, storeFront: sfID))) {
                         MenuRow(title: "Music Store", imageName: "music.mic")
@@ -57,12 +56,12 @@ struct MenuView: View {
     
     var scheduleAndBlocked: some View {
         Section {
-            if settings.settings.showScheduler {
+            if settings.onlineSettings.showScheduler {
                 NavigationLink(destination: ScheduleView(user: user, getPlists: MusicContent.getScheduledPlaylists)) {
                     MenuRow(title: "Playlist Schedule", imageName: "clock")
                 }
             }
-            if settings.settings.showBlocked {
+            if settings.onlineSettings.showBlocked {
                 if let token = tokenManager.appleMusicToken, let sfID = tokenManager.appleMusicStoreFront {
                     NavigationLink(destination: BlockedTracksView(token: token, storeFront: sfID)) {
                         MenuRow(title: "Blocked Tracks", imageName: "hand.thumbsdown")
@@ -78,8 +77,8 @@ struct MenuView: View {
             NavigationLink(destination: SettingsView()) {
                 MenuRow(title: "Settings", imageName: "gear")
             }
-            if settings.settings.showExternalDisplay {
-                NavigationLink(destination: ExtDisplaySettingsView()) {
+            if settings.onlineSettings.showExternalDisplay {
+                NavigationLink(destination: ExtDisplaySettingsView<PlaylistManager>()) {
                     MenuRow(title: "External Display", imageName: "tv")
                 }
             }

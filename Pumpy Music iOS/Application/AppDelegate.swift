@@ -24,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         firebaseSetup()
         uiSetup()
         setupSiren()
-        notificationSetUp()
         return true
     }
     

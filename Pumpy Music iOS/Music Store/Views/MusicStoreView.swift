@@ -10,6 +10,7 @@ import SwiftUI
 import StoreKit
 import MediaPlayer
 import SDWebImageSwiftUI
+import PumpyLibrary
 
 struct MusicStoreView: View {
     

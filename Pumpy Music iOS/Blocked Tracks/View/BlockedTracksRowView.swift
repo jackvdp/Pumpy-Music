@@ -42,7 +42,7 @@ struct BlockedTracksRowView: View {
             }
             Spacer()
             if blockedTrackVM.trackTitle == nil {
-                ActivityIndicatorView(isVisible: $blockedTrackVM.loadingSpinnerOn, type: .arcs)
+                ActivityIndicatorView(isVisible: $blockedTrackVM.loadingSpinnerOn, type: .arcs())
                     .frame(width: 20, height: 20)
                     .foregroundColor(Color(UIColor(named: K.pumpyPink)!))
             }

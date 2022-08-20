@@ -10,6 +10,7 @@ import SwiftUI
 import Combine
 import MediaPlayer
 import AlertToast
+import PumpyLibrary
 
 struct TrackTable: View {
     
@@ -28,7 +29,10 @@ struct TrackTable: View {
                         .foregroundColor(Color.gray)
                     ForEach(tracks, id: \.playbackStoreID) { track in
                         Divider()
-                        TrackRow(track: track).id(track.playbackStoreID)
+                        TrackRow<TokenManager,
+                                 NowPlayingManager,
+                                 BlockedTracksManager>(track: track)
+                            .id(track.playbackStoreID)
                     }
                 }
                 .padding(.leading)
@@ -41,7 +45,6 @@ struct TrackTable: View {
             } playNowAction: {
                 if let name = playlist.name {
                     self.musicManager.playlistManager.playPlaylistNow(playlist: name)
-                    self.homeVM.showMenu = false
                 }
             }
         }
@@ -59,10 +62,13 @@ struct TrackTable: View {
 
 #if DEBUG
 struct TrackTable_Previews: PreviewProvider {
+    
+    static let mm = MusicManager(username: "Test", settingsManager: SettingsManager(username: "Test"))
+    
     static var previews: some View {
-        TrackTable(playlist: PreviewPlaylist(name: "Test", items: [], cloudGlobalID: "", representativeItem: nil))
-            .environmentObject(MusicManager(username: "Test", settingsManager: SettingsManager(username: "Test")))
-            .environmentObject(HomeVM())
+        TrackTable(playlist: MockData.playlist)
+            .environmentObject(mm)
+            .environmentObject(HomeVM(alarmData: AlarmData(username: "test"), playlistManager: mm.playlistManager))
     }
 }
 #endif

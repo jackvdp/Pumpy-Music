@@ -61,7 +61,6 @@ class ScheduleViewModel: ObservableObject {
     }
     
     func deleteData(at i: Int) {
-        NotificationPush().deleteNotification(alarm: alarmArray[i])
         alarmArray.remove(at: i)
         user.alarmData.saveData(alarmArray: alarmArray)
     }
@@ -109,12 +108,10 @@ class ScheduleViewModel: ObservableObject {
             let newAlarm = createNewAlarm(playlistIndex: i)
             
             if let i = index {
-                NotificationPush().deleteNotification(alarm: alarmArray[i])
                 alarmArray.remove(at: i)
             }
             
             alarmArray.append(newAlarm)
-            NotificationPush().scheduleNotification(alarm: newAlarm)
             
             alarmArray.sort {
                 if $0.time.date.hour < 6, $1.time.date.hour >= 6 { return false }

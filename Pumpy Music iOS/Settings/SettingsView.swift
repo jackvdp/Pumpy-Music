@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import PumpyLibrary
 
 struct SettingsView: View {
     
@@ -18,19 +19,20 @@ struct SettingsView: View {
         VStack {
             Form {
                 Section {
-                    Toggle("Use Crossfade", isOn: $settingsVM.settings.crossfadeOn)
-                    Toggle("Ban Explicit Content:", isOn: $settingsVM.settings.banExplicit)
+                    Toggle("Use Crossfade", isOn: $settingsVM.onlineSettings.crossfadeOn)
+                    Toggle("Ban Explicit Content:", isOn: $settingsVM.onlineSettings.banExplicit)
+                    Toggle("Suspend Playlist Schedule \n(until 6am tomorrow):", isOn: $settingsVM.onlineSettings.overrideSchedule)
                 }
                 if revealAdminSettings {
                     Section {
-                        Toggle("Show Music Library", isOn: $settingsVM.settings.showMusicLibrary)
-                        Toggle("Show Music Store", isOn: $settingsVM.settings.showMusicStore)
+                        Toggle("Show Music Library", isOn: $settingsVM.onlineSettings.showMusicLibrary)
+                        Toggle("Show Music Store", isOn: $settingsVM.onlineSettings.showMusicStore)
                     }
                     Section {
-                        Toggle("Show Playlist Scheduler:", isOn: $settingsVM.settings.showScheduler)
+                        Toggle("Show Playlist Scheduler:", isOn: $settingsVM.onlineSettings.showScheduler)
                     }
                     Section {
-                        Toggle("Show External Display:", isOn: $settingsVM.settings.showExternalDisplay)
+                        Toggle("Show External Display:", isOn: $settingsVM.onlineSettings.showExternalDisplay)
                     }
                 }
                 Section {

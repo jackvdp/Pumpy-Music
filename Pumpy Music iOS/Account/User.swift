@@ -9,15 +9,18 @@
 import Foundation
 import UserNotifications
 import Firebase
-import Scheduler
+import PumpyLibrary
 
-class User: ObservableObject, ScheduledUser {
+class User: ObservableObject, UserProtocol {
+    
+    typealias M = MusicManager
+    typealias P = PlaylistManager
     
     let username: String
     let remoteDataManager: RemoteManager
     let alarmData: AlarmData
     let settingsManager: SettingsManager
-    let externalDisplayManager: ExternalDisplayManager
+    let externalDisplayManager: ExternalDisplayManager<PlaylistManager>
     let musicManager: MusicManager
     
     init(username: String) {
@@ -26,20 +29,26 @@ class User: ObservableObject, ScheduledUser {
         musicManager = MusicManager(username: username, settingsManager: settingsManager)
         alarmData = AlarmData(username: username)
         remoteDataManager = RemoteManager(username: username, musicManager: musicManager, alarmManager: alarmData)
-        externalDisplayManager = ExternalDisplayManager(username: username, musicManager: musicManager)
+        externalDisplayManager = ExternalDisplayManager(username: username, playlistManager: musicManager.playlistManager)
         PlaybackData.savePlaylistsOnline(for: username)
         ActiveInfo.save(.loggedIn, for: username)
         subscribeToTopic()
     }
     
     deinit {
+        DeinitCounter.count += 1
+    }
+    
+    func signOut() {
         firebaseSignOut()
-        ActiveInfo.save(.loggedOut, for: username)
         unsubscribeToTopic()
+        ActiveInfo.save(.loggedOut, for: username)
         alarmData.removeObservers()
         remoteDataManager.removeListener()
         musicManager.blockedTracksManager.removeListener()
-        musicManager.crossfadeManager.turnTimerOff()
+        musicManager.spotifyTokenManager.cancelTimer()
+        musicManager.playlistManager.removeObservers()
+        musicManager.endNotifications()
         settingsManager.removeSettingsListener()
         externalDisplayManager.removeSettingsListener()
     }
@@ -69,6 +78,14 @@ class User: ObservableObject, ScheduledUser {
             if let e = error {
                 print("Error \(e)")
             }
+        }
+    }
+}
+
+struct DeinitCounter {
+    static var count = 0 {
+        didSet {
+            print("*****  " + count.description)
         }
     }
 }

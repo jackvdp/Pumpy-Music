@@ -23,12 +23,13 @@ public class AlarmData: NSObject, ObservableObject {
         super.init()
         addDefaultsObservers()
         loadOnlineData()
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
     
     deinit {
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        print("***** Deiniting Alarms")
     }
-
+    
     func saveData(alarmArray: [Alarm]) {
         saveDataOnline(alarmArray: alarmArray)
         saveDataOffline(alarmArray: alarmArray)
@@ -90,10 +91,6 @@ public class AlarmData: NSObject, ObservableObject {
     public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == K.alarmsKey {
             loadData()
-            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            for alarmToAdd in alarmArray {
-                NotificationPush().scheduleNotification(alarm: alarmToAdd)
-            }
         }
     }
 }
