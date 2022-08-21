@@ -15,7 +15,7 @@ import MusicKit
 class QueueManager: QueueProtocol {
     
     var username: String
-    let controller: MPMusicPlayerApplicationController
+    let controller = ApplicationMusicPlayer.shared
     let debouncer = Debouncer()
     let authManager: AuthorisationManager
     @Published var queueTracks = [PumpyLibrary.Track]()
@@ -23,11 +23,9 @@ class QueueManager: QueueProtocol {
     @Published var analysingEnergy = false
     
     init(name: String,
-         authManager: AuthorisationManager,
-         controller: MPMusicPlayerApplicationController = MPMusicPlayerController.applicationQueuePlayer) {
+         authManager: AuthorisationManager) {
         username = name
         self.authManager = authManager
-        self.controller = controller
     }
     
     deinit {
@@ -35,57 +33,39 @@ class QueueManager: QueueProtocol {
     }
     
     func addPlaylistToQueue(queueDescriptor: MPMusicPlayerMediaItemQueueDescriptor) {
-        conductQueuePerform { queue in
-            let oldQueue = queue.items
-            for item in oldQueue {
-                if item != self.controller.nowPlayingItem {
-                    queue.remove(item)
-                }
-            }
-        } completion: { queue, _ in
-            self.controller.prepend(queueDescriptor)
+        let items = queueDescriptor.itemCollection.items
+        Task {
+            try await controller.queue.insert(items, position: .afterCurrentEntry)
+            getUpNext()
         }
     }
     
     func getUpNext() {
-        conductQueuePerform { _ in
-            return
-        } completion: { queue, _ in
-            self.queueTracks = queue.items
-            self.getIndex()
-        }
-    }
-    
-    func removeFromQueue(id: String) {
-        conductQueuePerform { queue in
-            let items = queue.items.filter { $0.playbackStoreID == id }
-            for item in items {
-                queue.remove(item)
+        queueTracks = controller.queue.entries.compactMap {
+            let item = $0.item
+            switch item {
+            case .song(let s): return s
+            default: return nil
             }
-        } completion: { queue, _ in
-            self.queueTracks = queue.items
-            self.getIndex()
         }
-        
-    }
-    
-    private func conductQueuePerform(queueTransaction: @escaping (MPMusicPlayerControllerMutableQueue)->(),
-                                     completion: @escaping (MPMusicPlayerControllerQueue, Error?)->()) {
-        debouncer.handler = {
-            self.controller.perform(queueTransaction: queueTransaction, completionHandler: completion)
-        }
-        
-    }
-    
-    func saveNewQueue(_ items: [MPMediaItem]) {
-        PlaybackData.saveCurrentQueueOnline(items: items, for: self.username)
+        getIndex()
     }
     
     func getIndex() {
-        let index = controller.indexOfNowPlayingItem
-        if index <= queueTracks.count {
-            queueIndex = index
+        guard let currentEntry = controller.queue.currentEntry else {
+            queueIndex = 0
+            return
         }
+        queueIndex = controller.queue.entries.firstIndex(of: currentEntry) ?? 0
+    }
+    
+    func removeFromQueue(id: String) {
+        
+    }
+    
+
+    func saveNewQueue(_ items: [MPMediaItem]) {
+        PlaybackData.saveCurrentQueueOnline(items: queueTracks, for: self.username)
     }
     
 }

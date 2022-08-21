@@ -7,21 +7,34 @@
 //
 
 import Foundation
-import UIKit
 import MusicKit
 import PumpyLibrary
+import MediaPlayer
+import Combine
+import SwiftUI
 
 class NowPlayingManager: NowPlayingProtocol {
     
     @Published var currentTrack: PumpyLibrary.Track?
-    @Published var currentArtwork: UIImage? = nil
     @Published var playButtonState: PlayButton = .notPlaying
     @Published var currentAudioFeatures: AudioFeatures?
     let musicPlayerController = ApplicationMusicPlayer.shared
-    let spotifyTokenManager: SpotifyTokenManager
     
-    init(spotifyTokenManager: SpotifyTokenManager) {
-        self.spotifyTokenManager = spotifyTokenManager
+    
+    @ObservedObject private var queue = ApplicationMusicPlayer.shared.queue
+    @ObservedObject private var state = ApplicationMusicPlayer.shared.state
+    private var queueCancellable: AnyCancellable? = nil
+    private var stateCancellable: AnyCancellable? = nil
+    
+    init() {
+        queueCancellable = queue.objectWillChange.sink { [weak self] (_) in
+            self?.updateTrackData()
+            self?.objectWillChange.send()
+        }
+        stateCancellable = state.objectWillChange.sink { [weak self] () in
+            self?.playButtonState = self?.musicPlayerController.state.playbackStatus == .playing ? .playing : .notPlaying
+            self?.objectWillChange.send()
+        }
     }
     
     deinit {
@@ -29,33 +42,22 @@ class NowPlayingManager: NowPlayingProtocol {
         DeinitCounter.count += 1
     }
     
-    func updateTrackData(tokenManager: TokenManager) {
+    func updateTrackData() {
+        playButtonState = musicPlayerController.state.playbackStatus == .playing ? .playing : .notPlaying
         if let nowPlayingItem = musicPlayerController.queue.currentEntry?.item {
             switch nowPlayingItem {
             case .song(let song):
-                currentTrack = NowPlayingItem(title: song.title,
-                                              artist: song.artistName,
-                                              artwork: song.artwork,
-                                              playbackStoreID: song.id.rawValue,
-                                              isExplicitItem: song.contentRating == . explicit,
-                                              isrc: song.isrc)
-            case .musicVideo(let song):
-                currentTrack = NowPlayingItem(title: song.title,
-                                              artist: song.artistName,
-                                              artwork: song.artwork,
-                                              playbackStoreID: song.id.rawValue,
-                                              isExplicitItem: song.contentRating == . explicit,
-                                              isrc: song.isrc)
-            @unknown default:
+                currentTrack = song
+                print(song.name)
+                print(song.isrc)
+                
+                return
+            default:
                 print("Unknown")
             }
-        } else {
-            currentArtwork = nil
-            currentTrack = nil
-            currentAudioFeatures = nil
         }
-        playButtonState = musicPlayerController.state.playbackStatus == .playing ? .playing : .notPlaying
-        
+        currentTrack = nil
+        currentAudioFeatures = nil
     }
     
     func updateTrackOnline(for username: String, playlist: String) {
@@ -80,26 +82,5 @@ class NowPlayingManager: NowPlayingProtocol {
                                               playbackState: musicPlayerController.state.playbackStatus,
                                               playlistLabel: playlist)
     }
-    
-}
-
-struct NowPlayingItem: PumpyLibrary.Track, Codable {
-    var title: String?
-    
-    var artist: String?
-    
-    var artwork: MusicKit.Artwork?
-    
-    var playbackStoreID: String
-    
-    var isExplicitItem: Bool
-    var isrc: String?
-    func getBlockedTrack() -> BlockedTrack {
-        BlockedTrack(title: title,
-                     artist: artist,
-                     isExplicit: isExplicitItem,
-                     playbackID: playbackStoreID)
-    }
-    
     
 }

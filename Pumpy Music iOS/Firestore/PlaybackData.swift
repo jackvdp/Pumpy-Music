@@ -11,6 +11,7 @@ import Firebase
 import CodableFirebase
 import MediaPlayer
 import PumpyLibrary
+import MusicKit
 
 class PlaybackData {
     
@@ -45,8 +46,8 @@ class PlaybackData {
         documentName: K.FStore.trackCollection)
     }
     
-    static func saveCurrentQueueOnline(items: [Track], for username: String) {
-        let tracks = items.map { TrackOnline(name: $0.title ?? "",
+    static func saveCurrentQueueOnline(items: [PumpyLibrary.Track], for username: String) {
+        let tracks = items.map { TrackOnline(name: $0.name ?? "",
                                              artist: $0.artist ?? "",
                                              id: $0.playbackStoreID)}
         FireMethods.save(object: tracks,
@@ -55,14 +56,14 @@ class PlaybackData {
                          dataFieldName: K.FStore.upNext)
     }
     
-    static func updatePlaybackInfoOnline(for username: String, item: Song?, index: Int, playbackState: Int, playlistLabel: String) {
+    static func updatePlaybackInfoOnline(for username: String, item: Song?, index: Int, playbackState: MusicKit.ApplicationMusicPlayer.PlaybackStatus, playlistLabel: String) {
         var currentTrack = "Not Playing"
         var currentArtist = "– – – –"
         var id = String()
         
         if let nowPlayingItem = item {
             currentArtist = nowPlayingItem.artist ?? ""
-            currentTrack = nowPlayingItem.title ?? "Not Available"
+            currentTrack = nowPlayingItem.title
             id = nowPlayingItem.playbackStoreID
         }
         
@@ -71,7 +72,7 @@ class PlaybackData {
             trackName: currentTrack,
             trackArtistName: currentArtist,
             playlistName: playlistLabel,
-            playbackState: playbackState,
+            playbackState: playbackState == .playing ? 0 : 1,
             versionNumber: K.versionNumber,
             queueIndex: index
         )

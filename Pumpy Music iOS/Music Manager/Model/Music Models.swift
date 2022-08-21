@@ -10,15 +10,40 @@ import Foundation
 import MediaPlayer
 import SwiftUI
 import PumpyLibrary
+import MusicKit
 
-extension MPMediaItem: Track {
-    public func getBlockedTrack() -> BlockedTrack {
-        return BlockedTrack(title: self.title,
-                            artist: self.artist,
-                            isExplicit: self.isExplicitItem,
-                            playbackID: self.playbackStoreID)
+extension MPMediaPlaylist: PumpyLibrary.Playlist, ScheduledPlaylist {}
+
+extension MPMediaItem: PlayableMusicItem {
+    public var playParameters: PlayParameters? {
+        let data = "{\"id\": \"\(id)\",\"kind\": \"song\"}"
+            .data(using: .utf8)!
+        return try! JSONDecoder().decode(PlayParameters.self, from: data)
+    }
+
+    public var id: MusicItemID {
+        MusicItemID(rawValue: playbackStoreID)
     }
 }
 
-extension MPMediaPlaylist: Playlist, ScheduledPlaylist {}
-
+extension MPMediaItem: PumpyLibrary.Track {
+    public var name: String? {
+        return title
+    }
+    
+    public var musicKitArtwork: MusicKit.Artwork? {
+        return nil
+    }
+    
+    public var mpArtwork: MPMediaItemArtwork? {
+        return artwork
+    }
+    
+    public func getBlockedTrack() -> BlockedTrack {
+        BlockedTrack(title: title,
+                     artist: artist,
+                     isExplicit: isExplicitItem,
+                     playbackID: playbackStoreID)
+    }
+    
+}

@@ -45,28 +45,35 @@ class PlaylistManager: NSObject, PlaylistProtocol {
     // MARK: - Public Functions
     
     func playPlaylistNow(playlist: String, secondaryPlaylists: [SecondaryPlaylist] = []) {
-//        let queue = getQueueFromPlaylists(playlist: playlist, secondaryPlaylists: secondaryPlaylists)
-//        musicPlayerController.setQueue(with: queue)
-//        musicPlayerController.shuffleMode = .off
-//        musicPlayerController.repeatMode = .all
-//        MusicCoreFunctions.prepareToPlayAndPlay()
-//        self.displayPlaylistInfo(playlist: playlist)
-        
-        let queue = ApplicationMusicPlayer.Queue(
+        let items = getQueueFromPlaylists(playlist: playlist, secondaryPlaylists: secondaryPlaylists).itemCollection.items
+        let queue = ApplicationMusicPlayer.Queue(for: items)
+        musicPlayerController.queue = queue
+        beginPlaying()
+        self.displayPlaylistInfo(playlist: playlist)
     }
     
-    
+    private func beginPlaying() {
+        Task {
+            do {
+                try await musicPlayerController.play()
+            } catch {
+                print("Failed to prepare to play with error: \(error).")
+            }
+        }
+    }
     
     func playPlaylistNext(playlist: String, secondaryPlaylists: [SecondaryPlaylist] = []) {
         
-        guard musicPlayerController.playbackState == .playing else {
+        guard musicPlayerController.state.playbackStatus == .playing else {
             playPlaylistNow(playlist: playlist, secondaryPlaylists: secondaryPlaylists)
             return
         }
         
-        let queueDescriptor = self.getQueueFromPlaylists(playlist: playlist,
-                                                         secondaryPlaylists: secondaryPlaylists)
-        queueManager.addPlaylistToQueue(queueDescriptor: queueDescriptor)
+        let items = self.getQueueFromPlaylists(playlist: playlist,
+                                                         secondaryPlaylists: secondaryPlaylists).itemCollection.items
+        Task {
+            try await musicPlayerController.queue.insert(items, position: .afterCurrentEntry)
+        }
         self.displayPlaylistInfo(playlist: playlist)
     }
     

@@ -27,14 +27,13 @@ class MusicManager: ObservableObject, MusicProtocol {
     init(username: String, settingsManager: SettingsManager) {
         self.username = username
         self.settingsManager = settingsManager
-        nowPlayingManager = NowPlayingManager(spotifyTokenManager: spotifyTokenManager)
-        queueManager = QueueManager(name: username, authManager: authManager, controller: musicPlayerController)
+        nowPlayingManager = NowPlayingManager()
+        queueManager = QueueManager(name: username, authManager: authManager)
         blockedTracksManager = BlockedTracksManager(username: username, queueManager: queueManager)
         playlistManager = PlaylistManager(blockedTracksManager: blockedTracksManager,
                                           settingsManager: settingsManager,
                                           tokenManager: tokenManager,
-                                          queueManager: queueManager,
-                                          controller: musicPlayerController)
+                                          queueManager: queueManager)
         setUpNotifications()
     }
     
@@ -46,7 +45,6 @@ class MusicManager: ObservableObject, MusicProtocol {
     // MARK: - Setup Notifications
     
     func setUpNotifications() {
-        musicPlayerController.beginGeneratingPlaybackNotifications()
         addMusicObserver(for: .MPMusicPlayerControllerNowPlayingItemDidChange,
                          action: #selector(handleMusicPlayerManagerDidUpdateState))
         addMusicObserver(for: .MPMusicPlayerControllerPlaybackStateDidChange,
@@ -64,13 +62,12 @@ class MusicManager: ObservableObject, MusicProtocol {
             .MPMusicPlayerControllerQueueDidChange,
             .MPMediaLibraryDidChange
         ])
-        musicPlayerController.endGeneratingPlaybackNotifications()
     }
     
     // MARK: - Respond to Notifications
     
     @objc func handleMusicPlayerManagerDidUpdateState(_ notification: Notification) {
-        nowPlayingManager.updateTrackData(tokenManager: tokenManager)
+        nowPlayingManager.updateTrackData()
         queueManager.getIndex()
         nowPlayingManager.updateTrackOnline(for: username, playlist: playlistManager.playlistLabel)
     }

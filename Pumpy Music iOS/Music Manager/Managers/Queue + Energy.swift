@@ -55,6 +55,7 @@ extension QueueManager {
     }
     
     private func createTracksFromQueue() -> [PumpyAnalytics.Track] {
+        return []
     }
     
     private func sortTracksByEnergy(tracks: [PumpyAnalytics.Track]) -> (mostEnergyIDs: [PumpyAnalytics.Track], leastEnergyIDs: [PumpyAnalytics.Track]) {
