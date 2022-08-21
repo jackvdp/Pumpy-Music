@@ -8,11 +8,12 @@
 
 import Foundation
 import PumpyLibrary
+import MusicKit
 import MediaPlayer
 
 class PlaylistManager: NSObject, PlaylistProtocol {
     
-    let musicPlayerController: MPMusicPlayerApplicationController
+    let musicPlayerController = ApplicationMusicPlayer.shared
     @Published var playlistLabel = String()
     @Published var playlistURL = String()
     let blockedTracksManager: BlockedTracksManager
@@ -25,13 +26,11 @@ class PlaylistManager: NSObject, PlaylistProtocol {
     init(blockedTracksManager: BlockedTracksManager,
          settingsManager: SettingsManager,
          tokenManager: TokenManager,
-         queueManager: QueueManager,
-         controller: MPMusicPlayerApplicationController) {
+         queueManager: QueueManager) {
         self.blockedTracksManager = blockedTracksManager
         self.settingsManager = settingsManager
         self.tokenManager = tokenManager
         self.queueManager = queueManager
-        self.musicPlayerController = controller
         super.init()
         setUpPlaylistChangeTimer()
         addDefaultsObservers()
@@ -46,13 +45,17 @@ class PlaylistManager: NSObject, PlaylistProtocol {
     // MARK: - Public Functions
     
     func playPlaylistNow(playlist: String, secondaryPlaylists: [SecondaryPlaylist] = []) {
-        let queue = getQueueFromPlaylists(playlist: playlist, secondaryPlaylists: secondaryPlaylists)
-        musicPlayerController.setQueue(with: queue)
-        musicPlayerController.shuffleMode = .off
-        musicPlayerController.repeatMode = .all
-        MusicCoreFunctions.prepareToPlayAndPlay()
-        self.displayPlaylistInfo(playlist: playlist)
+//        let queue = getQueueFromPlaylists(playlist: playlist, secondaryPlaylists: secondaryPlaylists)
+//        musicPlayerController.setQueue(with: queue)
+//        musicPlayerController.shuffleMode = .off
+//        musicPlayerController.repeatMode = .all
+//        MusicCoreFunctions.prepareToPlayAndPlay()
+//        self.displayPlaylistInfo(playlist: playlist)
+        
+        let queue = ApplicationMusicPlayer.Queue(
     }
+    
+    
     
     func playPlaylistNext(playlist: String, secondaryPlaylists: [SecondaryPlaylist] = []) {
         

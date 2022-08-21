@@ -7,13 +7,13 @@
 //
 
 import Foundation
-import MediaPlayer
+import MusicKit
 import SwiftUI
 import PumpyLibrary
 import PumpyAnalytics
 
 class MusicManager: ObservableObject, MusicProtocol {
-    let musicPlayerController = MPMusicPlayerController.applicationQueuePlayer
+    let musicPlayerController = ApplicationMusicPlayer.shared
     let tokenManager = TokenManager()
     let authManager = AuthorisationManager()
     let spotifyTokenManager = SpotifyTokenManager()

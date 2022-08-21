@@ -8,16 +8,16 @@
 
 import Foundation
 import UIKit
-import MediaPlayer
+import MusicKit
 import PumpyLibrary
 
 class NowPlayingManager: NowPlayingProtocol {
     
-    @Published var currentTrack: Track?
+    @Published var currentTrack: PumpyLibrary.Track?
     @Published var currentArtwork: UIImage? = nil
     @Published var playButtonState: PlayButton = .notPlaying
     @Published var currentAudioFeatures: AudioFeatures?
-    let musicPlayerController = MPMusicPlayerController.applicationQueuePlayer
+    let musicPlayerController = ApplicationMusicPlayer.shared
     let spotifyTokenManager: SpotifyTokenManager
     
     init(spotifyTokenManager: SpotifyTokenManager) {
@@ -30,37 +30,76 @@ class NowPlayingManager: NowPlayingProtocol {
     }
     
     func updateTrackData(tokenManager: TokenManager) {
-        if let nowPlayingItem = musicPlayerController.nowPlayingItem {
-            Artwork(token: tokenManager.appleMusicToken, store: tokenManager.appleMusicStoreFront)
-                .getArtwork(from: nowPlayingItem, size: 500) { image in
-                DispatchQueue.main.async {
-                    self.currentArtwork = image
-                }
-            }
-            currentTrack = nowPlayingItem
-
-            if let token = spotifyTokenManager.spotifyToken {
-                SpotifyAPI(spotifyToken: token).getAudioFeaturesofTrack(id: nowPlayingItem.playbackStoreID) { features in
-                    DispatchQueue.main.async {
-                        self.currentAudioFeatures = features
-                    }
-                }
+        if let nowPlayingItem = musicPlayerController.queue.currentEntry?.item {
+            switch nowPlayingItem {
+            case .song(let song):
+                currentTrack = NowPlayingItem(title: song.title,
+                                              artist: song.artistName,
+                                              artwork: song.artwork,
+                                              playbackStoreID: song.id.rawValue,
+                                              isExplicitItem: song.contentRating == . explicit,
+                                              isrc: song.isrc)
+            case .musicVideo(let song):
+                currentTrack = NowPlayingItem(title: song.title,
+                                              artist: song.artistName,
+                                              artwork: song.artwork,
+                                              playbackStoreID: song.id.rawValue,
+                                              isExplicitItem: song.contentRating == . explicit,
+                                              isrc: song.isrc)
+            @unknown default:
+                print("Unknown")
             }
         } else {
             currentArtwork = nil
             currentTrack = nil
             currentAudioFeatures = nil
         }
-        playButtonState = musicPlayerController.playbackState == .playing ? .playing : .notPlaying
+        playButtonState = musicPlayerController.state.playbackStatus == .playing ? .playing : .notPlaying
         
     }
     
     func updateTrackOnline(for username: String, playlist: String) {
+        var song: Song?
+        if let item = musicPlayerController.queue.currentEntry?.item {
+            switch item {
+            case .song(let s):
+                song = s
+            default:
+                song = nil
+            }
+        }
+        
+        var index = 0
+        if let entry =  musicPlayerController.queue.currentEntry {
+            index = musicPlayerController.queue.entries.firstIndex(of: entry) ?? 0
+        }
+        
         PlaybackData.updatePlaybackInfoOnline(for: username,
-                                              item: musicPlayerController.nowPlayingItem,
-                                              index: musicPlayerController.indexOfNowPlayingItem,
-                                              playbackState: musicPlayerController.playbackState.rawValue,
+                                              item: song,
+                                              index: index,
+                                              playbackState: musicPlayerController.state.playbackStatus,
                                               playlistLabel: playlist)
     }
+    
+}
+
+struct NowPlayingItem: PumpyLibrary.Track, Codable {
+    var title: String?
+    
+    var artist: String?
+    
+    var artwork: MusicKit.Artwork?
+    
+    var playbackStoreID: String
+    
+    var isExplicitItem: Bool
+    var isrc: String?
+    func getBlockedTrack() -> BlockedTrack {
+        BlockedTrack(title: title,
+                     artist: artist,
+                     isExplicit: isExplicitItem,
+                     playbackID: playbackStoreID)
+    }
+    
     
 }
